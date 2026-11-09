@@ -1,0 +1,1652 @@
+# Español.
+# Español.
+msgid ""
+msgstr ""
+"Project-Id-Version: ianox 1.0.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid ""
+"(editable). If the model is not in the table it shows «—». The context limit "
+"is not shown because the provider does not return it."
+msgstr ""
+"(editable). Si el modelo no está en la tabla aparece «—». El límite de "
+"contexto no se muestra porque el proveedor no lo devuelve."
+
+msgid "1 hour ago"
+msgstr "Hace 1 hora"
+
+msgid "10 min ago"
+msgstr "Hace 10 min"
+
+msgid "12 models available"
+msgstr "12 modelos disponibles"
+
+msgid "2 min ago"
+msgstr "Hace 2 min"
+
+msgid "3 min ago"
+msgstr "Hace 3 min"
+
+msgid "3 providers loaded"
+msgstr "3 proveedores cargados"
+
+msgid "40+ providers"
+msgstr "Más de 40 proveedores"
+
+msgid "9router-style web dashboard"
+msgstr "Panel web al estilo 9router"
+
+msgid "A browser interface for the gateway"
+msgstr "Una interfaz en el navegador para la pasarela"
+
+msgid "A key is already saved."
+msgstr "Ya hay una clave guardada."
+
+msgid "A playground to try models"
+msgstr "Una zona de pruebas para probar modelos"
+
+msgid "AGENTS.md"
+msgstr "AGENTS.md"
+
+msgid "AI providers"
+msgstr "Proveedores de IA"
+
+msgid "AI router with fallback, key management, web dashboard"
+msgstr "Enrutador de IA con respaldo, gestión de claves y panel web"
+
+msgid "API off"
+msgstr "API apagada"
+
+msgid "API on"
+msgstr "API activa"
+
+msgid "About ianox"
+msgstr "Acerca de ianox"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Active model"
+msgstr "Modelo activo"
+
+msgid "Active routes"
+msgstr "Rutas activas"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Add MCP server"
+msgstr "Añadir servidor MCP"
+
+msgid "Add a provider and its models will show up here."
+msgstr "Añade un proveedor y sus modelos aparecerán aquí."
+
+msgid "Add a provider to start chatting"
+msgstr "Añade un proveedor para poder chatear"
+
+msgid "Add an API and its models to chat and route."
+msgstr "Añade una API y sus modelos para poder chatear y enrutar."
+
+msgid "Add provider"
+msgstr "Añadir proveedor"
+
+msgid "Add server"
+msgstr "Añadir servidor"
+
+msgid ""
+"Add the filesystem server, PhotoCraft or any binary that speaks MCP over "
+"stdio."
+msgstr ""
+"Añade el servidor de sistema de archivos, PhotoCraft o cualquier binario que "
+"hable MCP por stdio."
+
+msgid "Add to favorites"
+msgstr "Añadir a favoritos"
+
+msgid "Advanced"
+msgstr "Avanzado"
+
+msgid "Advanced settings"
+msgstr "Configuración avanzada"
+
+msgid "Agent"
+msgstr "Agente"
+
+msgid "Agent instructions…"
+msgstr "Instrucciones del agente…"
+
+msgid "Agents"
+msgstr "Agentes"
+
+msgid "All models exposed by your active providers."
+msgstr "Todos los modelos que exponen tus proveedores activos."
+
+msgid "All providers"
+msgstr "Todos los proveedores"
+
+msgid "Allow commands in this conversation"
+msgstr "Permitir comandos en esta conversación"
+
+msgid "Allow cross-origin requests (needed for the web dashboard)"
+msgstr "Permitir peticiones cross-origin (necesario para el panel web)"
+
+msgid "Allow once"
+msgstr "Permitir una vez"
+
+msgid "Allow this folder in this conversation"
+msgstr "Permitir esta carpeta en esta conversación"
+
+msgid "App version"
+msgstr "Versión de la app"
+
+msgid "Appearance"
+msgstr "Apariencia"
+
+msgid "Architecture"
+msgstr "Arquitectura"
+
+msgid "Ask anything, translate text, draft ideas or summarize information."
+msgstr ""
+"Pregunta lo que sea, traduce texto, redacta ideas o resume información."
+
+msgid "Ask every time"
+msgstr "Preguntar siempre"
+
+msgid "Ask for code, scripts or commands…"
+msgstr "Pide código, scripts o comandos…"
+
+msgid "Ask for commands, bash scripts, debugging or technical solutions."
+msgstr "Pide comandos, scripts bash, depuración o soluciones técnicas."
+
+msgid "Ask ianox anything…"
+msgstr "Pregunta cualquier cosa a ianox…"
+
+msgid "Assistant"
+msgstr "Asistente"
+
+msgid "Attach file"
+msgstr "Adjuntar archivo"
+
+msgid "Attach files"
+msgstr "Adjuntar archivos"
+
+msgid "Authentication token (Bearer)"
+msgstr "Token de autenticación (Bearer)"
+
+msgid "Auto dependencies"
+msgstr "Dependencias automáticas"
+
+msgid "Automatic"
+msgstr "Automático"
+
+msgid "Available endpoints"
+msgstr "Endpoints disponibles"
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Bar chart"
+msgstr "Gráfica de barras"
+
+msgid "Base endpoint"
+msgstr "Endpoint base"
+
+msgid "Browser"
+msgstr "Navegador"
+
+msgid "Build mode: can edit files"
+msgstr "Modo build: puede editar archivos"
+
+msgid "Built-in server"
+msgstr "Servidor integrado"
+
+msgid "By provider"
+msgstr "Por proveedor"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Change icon…"
+msgstr "Cambiar icono…"
+
+msgid "Changes"
+msgstr "Cambios"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "Chat (Ollama)"
+msgstr "Chat (Ollama)"
+
+msgid "Chat (OpenAI)"
+msgstr "Chat (OpenAI)"
+
+msgid "Chat default"
+msgstr "Predeterminado del chat"
+
+msgid "Choose a provider…"
+msgstr "Elige un proveedor…"
+
+msgid "Choose what Ctrl+Q and the window's close button do"
+msgstr "Elige qué hacen Ctrl+Q y el botón de cerrar de la ventana"
+
+msgid "Choose…"
+msgstr "Elegir…"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Close file column"
+msgstr "Cerrar columna de archivos"
+
+msgid "Close ianox?"
+msgstr "¿Cerrar ianox?"
+
+msgid "Close panel"
+msgstr "Cerrar panel"
+
+msgid "Close tab"
+msgstr "Cerrar pestaña"
+
+msgid "Close the active tab"
+msgstr "Cerrar la pestaña activa"
+
+msgid "Code and technical commands"
+msgstr "Código y comandos técnicos"
+
+msgid "Code font"
+msgstr "Fuente del código"
+
+msgid "Coding agent, TUI + Desktop, MCP, LSP, subagents"
+msgstr "Agente de programación, TUI + escritorio, MCP, LSP, subagentes"
+
+msgid "Collapse"
+msgstr "Contraer"
+
+msgid "Compact the conversation"
+msgstr "Compactar la conversación"
+
+msgid "Compacting the conversation…"
+msgstr "Compactando la conversación…"
+
+msgid "Config version"
+msgstr "Versión config"
+
+msgid "Configuration"
+msgstr "Configuración"
+
+msgid "Configuration saved"
+msgstr "Configuración guardada"
+
+msgid "Configuration status"
+msgstr "Estado de la configuración"
+
+msgid "Configured"
+msgstr "Configurados"
+
+msgid "Connect provider"
+msgstr "Conectar proveedor"
+
+msgid "Connected"
+msgstr "Conectado"
+
+msgid "Connected in {ms} ms · {n} models"
+msgstr "Conectado en {ms} ms · {n} modelos"
+
+msgid "Context"
+msgstr "Contexto"
+
+msgid "Conversation compacted"
+msgstr "Conversación compactada"
+
+msgid "Conversations"
+msgstr "Conversaciones"
+
+msgid "Copy URL"
+msgstr "Copiar URL"
+
+msgid "Copy content"
+msgstr "Copiar contenido"
+
+msgid "Copy path"
+msgstr "Copiar ruta"
+
+msgid "Copy response"
+msgstr "Copiar respuesta"
+
+msgid "Copy text"
+msgstr "Copiar texto"
+
+msgid "Cost"
+msgstr "Coste"
+
+msgid "Could not compact the conversation"
+msgstr "No se pudo compactar la conversación"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Create Git repository"
+msgstr "Crear repositorio Git"
+
+msgid "Create agent"
+msgstr "Crear agente"
+
+msgid "Create route"
+msgstr "Crear ruta"
+
+msgid ""
+"Create ~/.config/ianox/plugins/<id>/plugin.json or <project>/.ianox/plugins/"
+"<id>/plugin.json."
+msgstr ""
+"Crea ~/.config/ianox/plugins/<id>/plugin.json o <proyecto>/.ianox/plugins/"
+"<id>/plugin.json."
+
+msgid ""
+"Create ~/.config/ianox/skills/<id>/SKILL.md or <project>/.ianox/skills/<id>/"
+"SKILL.md with frontmatter (name, description)."
+msgstr ""
+"Crea ~/.config/ianox/skills/<id>/SKILL.md o <proyecto>/.ianox/skills/<id>/"
+"SKILL.md con frontmatter (name, description)."
+
+msgid "Creating…"
+msgstr "Creando…"
+
+msgid "Cross-platform (Linux/macOS/Windows)"
+msgstr "Multi-plataforma (Linux/macOS/Windows)"
+
+msgid "Custom"
+msgstr "Personalizado"
+
+msgid "Danger zone"
+msgstr "Zona de peligro"
+
+msgid "Dashboard"
+msgstr "Panel"
+
+msgid "Dashboard /dashboard"
+msgstr "Panel /dashboard"
+
+msgid "Data and storage"
+msgstr "Datos y almacenamiento"
+
+msgid "Data, packaging and development"
+msgstr "Datos, empaquetado y desarrollo"
+
+msgid "Debian/Ubuntu/Mint"
+msgstr "Debian/Ubuntu/Mint"
+
+msgid "Default"
+msgstr "Por defecto"
+
+msgid "Default model"
+msgstr "Modelo por defecto"
+
+msgid "Default port"
+msgstr "Puerto por defecto"
+
+msgid "Define routing patterns"
+msgstr "Define patrones de enrutamiento"
+
+msgid ""
+"Define which provider serves each model. 9router-style patterns, priorities "
+"and fallback."
+msgstr ""
+"Define qué proveedor atiende cada modelo. Patrones, prioridades y respaldo "
+"al estilo 9router."
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Delete ALL settings and data?"
+msgstr "¿Borrar TODA la configuración y datos?"
+
+msgid "Delete MCP server {id}?"
+msgstr "¿Eliminar el servidor MCP {id}?"
+
+msgid "Delete agent {name}?"
+msgstr "¿Eliminar el agente {name}?"
+
+msgid "Delete conversation"
+msgstr "Eliminar conversación"
+
+msgid "Delete message"
+msgstr "Eliminar mensaje"
+
+msgid "Delete provider {id}?"
+msgstr "¿Eliminar proveedor {id}?"
+
+msgid "Delete route {id}?"
+msgstr "¿Eliminar ruta {id}?"
+
+msgid "Delete session"
+msgstr "Eliminar sesión"
+
+msgid "Delete this conversation?"
+msgstr "¿Eliminar esta conversación?"
+
+msgid "Deny"
+msgstr "Denegar"
+
+msgid "Dev: Vite + Tauri (hot reload)"
+msgstr "Desarrollo: Vite + Tauri (recarga en caliente)"
+
+msgid "Development"
+msgstr "Desarrollo"
+
+msgid "Discard changes"
+msgstr "Descartar cambios"
+
+msgid "Discard changes to {file}?"
+msgstr "¿Descartar los cambios de {file}?"
+
+msgid ""
+"Do you want to quit ianox, or keep it running in the system tray? The "
+"gateway stays available while it is in the tray."
+msgstr ""
+"¿Quieres salir de ianox o mantenerlo en la bandeja del sistema? La pasarela "
+"sigue disponible mientras esté en la bandeja."
+
+msgid "Don't ask again"
+msgstr "No volver a preguntar"
+
+msgid "Download"
+msgstr "Descargar"
+
+msgid "Drag to resize"
+msgstr "Arrastra para redimensionar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Edit MCP server"
+msgstr "Editar servidor MCP"
+
+msgid "Edit agent"
+msgstr "Editar agente"
+
+msgid "Edit message"
+msgstr "Editar mensaje"
+
+msgid "Edit provider"
+msgstr "Editar proveedor"
+
+msgid "Edit route"
+msgstr "Editar ruta"
+
+msgid "Empty folder"
+msgstr "Carpeta vacía"
+
+msgid "Enabled"
+msgstr "Habilitado"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Estimated cost from the price table in"
+msgstr "Coste estimado con la tabla de precios de"
+
+msgid "Every chat request is logged here automatically."
+msgstr "Cada petición del chat se registra aquí automáticamente."
+
+msgid "Everything clean on {branch}."
+msgstr "Todo limpio en {branch}."
+
+msgid "Expand"
+msgstr "Expandir"
+
+msgid "Export config"
+msgstr "Exportar config"
+
+msgid "Exposed endpoints"
+msgstr "Endpoints expuestos"
+
+msgid "Extensions"
+msgstr "Extensiones"
+
+msgid "External API is off · click to start"
+msgstr "API externa apagada · clic para iniciar"
+
+msgid "External API off"
+msgstr "API externa apagada"
+
+msgid "External API on"
+msgstr "API externa activa"
+
+msgid "External API on {addr} · click to stop"
+msgstr "API externa en {addr} · clic para detener"
+
+msgid "External HTTP API"
+msgstr "API HTTP externa"
+
+msgid "FUSE required"
+msgstr "Requiere FUSE"
+
+msgid "Fallback chains"
+msgstr "Cadenas de respaldo"
+
+msgid "Favorites"
+msgstr "Favoritos"
+
+msgid "Fedora/RHEL"
+msgstr "Fedora/RHEL"
+
+msgid "File actions"
+msgstr "Acciones del archivo"
+
+msgid "File manager"
+msgstr "Gestor de archivos"
+
+msgid "File too large: the diff was shortened."
+msgstr "Archivo demasiado grande: el diff se ha recortado."
+
+msgid "Filled in when you pick a provider"
+msgstr "Se rellena al elegir proveedor"
+
+msgid "Fills the URL and the models; you can change them afterwards."
+msgstr "Rellena la URL y los modelos; puedes cambiarlos después."
+
+msgid "Filter files"
+msgstr "Filtrar archivos"
+
+msgid "Folder path *"
+msgstr "Ruta de la carpeta *"
+
+msgid "Font smoothing"
+msgstr "Suavizado de fuente"
+
+msgid "Framework"
+msgstr "Framework"
+
+msgid "Free"
+msgstr "Gratis"
+
+msgid "Full privacy"
+msgstr "Privacidad total"
+
+msgid "Gateway"
+msgstr "Pasarela"
+
+msgid "General"
+msgstr "General"
+
+msgid "General queries and chat"
+msgstr "Consultas generales y chat"
+
+msgid "Generate (Ollama)"
+msgstr "Generar (Ollama)"
+
+msgid "Generate icons from SVG"
+msgstr "Generar iconos desde SVG"
+
+msgid "Generate new title"
+msgstr "Generar título nuevo"
+
+msgid "Glob"
+msgstr "Glob"
+
+msgid "Go"
+msgstr "Ir"
+
+msgid "Granular permissions"
+msgstr "Permisos granulares"
+
+msgid "Grep"
+msgstr "Grep"
+
+msgid "HTTP server"
+msgstr "Servidor HTTP"
+
+msgid "Health check"
+msgstr "Comprobación de estado"
+
+msgid "Hide ianox"
+msgstr "Ocultar ianox"
+
+msgid "How can I help?"
+msgstr "¿En qué puedo ayudarte?"
+
+msgid "I'd rather set it up manually"
+msgstr "Prefiero configurarlo manualmente"
+
+msgid "ID and command are required"
+msgstr "El ID y el comando son obligatorios"
+
+msgid "If it doesn't match, try all providers"
+msgstr "Si no coincide, probar todos los proveedores"
+
+msgid ""
+"If set, every request must send the header: Authorization: Bearer <token>"
+msgstr ""
+"Si se define, todas las peticiones requieren el header: Authorization: "
+"Bearer <token>"
+
+msgid "Import config"
+msgstr "Importar config"
+
+msgid "In messages"
+msgstr "En los mensajes"
+
+msgid "Inactive"
+msgstr "Inactivo"
+
+msgid "Input"
+msgstr "Entrada"
+
+msgid "Inspiration / References"
+msgstr "Inspiración / Referencias"
+
+msgid "Interface"
+msgstr "Interfaz"
+
+msgid "Interface font"
+msgstr "Fuente de la interfaz"
+
+msgid "Internal router, providers and routes in one place."
+msgstr "Enrutador interno, proveedores y rutas en un solo sitio."
+
+msgid "It runs isolated: it can only write inside the project."
+msgstr "Se ejecuta aislado: solo puede escribir dentro del proyecto."
+
+msgid ""
+"It's the only thing missing for the chat to reply. Takes under a minute."
+msgstr ""
+"Es lo único que falta para que el chat responda. Tarda menos de un minuto."
+
+msgid "KEY=VALUE, one per line"
+msgstr "KEY=VALOR, una por línea"
+
+msgid "Keep in the tray"
+msgstr "Mantener en la bandeja"
+
+msgid "Keep in tray"
+msgstr "Mantener en la bandeja"
+
+msgid "Keyboard shortcuts"
+msgstr "Atajos de teclado"
+
+msgid "Last activity"
+msgstr "Última actividad"
+
+msgid "Leave empty to disable"
+msgstr "Dejar vacío para deshabilitar"
+
+msgid "Leave empty to keep unchanged"
+msgstr "Dejar vacío para no cambiar"
+
+msgid "Light gray"
+msgstr "Gris claro"
+
+msgid ""
+"Like OpenCode: build with full access and plan read-only. Each agent sets "
+"its model and system prompt."
+msgstr ""
+"Igual que OpenCode: build con acceso total y plan de solo lectura. Cada "
+"agente fija su modelo y su prompt de sistema."
+
+msgid "Linux packaging"
+msgstr "Empaquetado Linux"
+
+msgid "List models (Ollama)"
+msgstr "Listar modelos (Ollama)"
+
+msgid "List models (OpenAI)"
+msgstr "Listar modelos (OpenAI)"
+
+msgid "List of models available from this provider"
+msgstr "Lista de modelos disponibles en este proveedor"
+
+msgid "Loading MCP servers…"
+msgstr "Cargando servidores MCP…"
+
+msgid "Loading agents…"
+msgstr "Cargando agentes…"
+
+msgid "Loading changes…"
+msgstr "Cargando cambios…"
+
+msgid "Loading diff…"
+msgstr "Cargando diff…"
+
+msgid "Loading providers…"
+msgstr "Cargando proveedores…"
+
+msgid "Loading routes…"
+msgstr "Cargando rutas…"
+
+msgid "Loading settings…"
+msgstr "Cargando configuración…"
+
+msgid "Loading…"
+msgstr "Cargando…"
+
+msgid "Local AI gateway"
+msgstr "Pasarela de IA local"
+
+msgid "Local Flatpak build"
+msgstr "Compilación local de Flatpak"
+
+msgid "Local model manager, OpenAI-compatible API on :11434/v1"
+msgstr "Gestor de modelos locales, API compatible con OpenAI en :11434/v1"
+
+msgid "Local models"
+msgstr "Modelos locales"
+
+msgid "Local server status"
+msgstr "Estado del servidor local"
+
+msgid "MCP servers"
+msgstr "MCP servers"
+
+msgid "MCP servers, plugins, skills and language servers available."
+msgstr ""
+"Servidores MCP, complementos, habilidades y servidores de lenguaje "
+"disponibles."
+
+msgid "Main route"
+msgstr "Ruta principal"
+
+msgid "Manage models"
+msgstr "Gestionar modelos"
+
+msgid "Maximize"
+msgstr "Maximizar"
+
+msgid "Medium gray"
+msgstr "Gris medio"
+
+msgid "Message"
+msgstr "Mensaje"
+
+msgid "Message actions"
+msgstr "Acciones del mensaje"
+
+msgid "Messages"
+msgstr "Mensajes"
+
+msgid "Messages (Anthropic)"
+msgstr "Mensajes (Anthropic)"
+
+msgid "Minimize"
+msgstr "Minimizar"
+
+msgid "Minimize to tray"
+msgstr "Minimizar a bandeja"
+
+msgid "Model"
+msgstr "Modelo"
+
+msgid "Model pattern (glob)"
+msgstr "Patrón de modelo (glob)"
+
+msgid "Model requests"
+msgstr "Peticiones al modelo"
+
+msgid "Models"
+msgstr "Modelos"
+
+msgid "Models (one per line)"
+msgstr "Modelos (uno por línea)"
+
+msgid "My Provider"
+msgstr "Mi Proveedor"
+
+msgid "My agent"
+msgstr "Mi agente"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "New"
+msgstr "Nueva"
+
+msgid "New agent"
+msgstr "Nuevo agente"
+
+msgid "New chat"
+msgstr "Nuevo chat"
+
+msgid "New conversation"
+msgstr "Nueva conversación"
+
+msgid "New conversation title"
+msgstr "Nuevo título de la conversación"
+
+msgid "New project"
+msgstr "Nuevo proyecto"
+
+msgid "New route"
+msgstr "Nueva ruta"
+
+msgid "New tab"
+msgstr "Nueva pestaña"
+
+msgid "New terminal"
+msgstr "Nueva terminal"
+
+msgid "No LSP servers"
+msgstr "No hay servidores LSP"
+
+msgid "No MCP servers"
+msgstr "No hay servidores MCP"
+
+msgid "No activity in this period"
+msgstr "Sin actividad en este periodo"
+
+msgid "No agents"
+msgstr "No hay agentes"
+
+msgid "No changes"
+msgstr "Sin cambios"
+
+msgid "No conversations yet"
+msgstr "Sin conversaciones todavía"
+
+msgid "No install"
+msgstr "Sin instalación"
+
+msgid "No matching files"
+msgstr "Ningún archivo coincide"
+
+msgid "No matching models"
+msgstr "Ningún modelo coincide"
+
+msgid "No model usage"
+msgstr "Sin uso de modelos"
+
+msgid "No models configured"
+msgstr "Sin modelos configurados"
+
+msgid "No plugins installed"
+msgstr "No hay complementos instalados"
+
+msgid "No project"
+msgstr "Sin proyecto"
+
+msgid "No project open"
+msgstr "Ningún proyecto abierto"
+
+msgid "No providers"
+msgstr "Sin proveedores"
+
+msgid "No providers configured"
+msgstr "No hay proveedores configurados"
+
+msgid "No providers enabled"
+msgstr "Ningún proveedor activado"
+
+msgid "No recent activity"
+msgstr "No hay actividad reciente"
+
+msgid "No response"
+msgstr "Sin respuesta"
+
+msgid "No results"
+msgstr "Sin resultados"
+
+msgid "No routes configured"
+msgstr "No hay rutas configuradas"
+
+msgid "No skills"
+msgstr "No hay habilidades"
+
+msgid "No system prompt"
+msgstr "Sin prompt de sistema"
+
+msgid "No text differences (binary file?)."
+msgstr "Sin diferencias de texto (¿archivo binario?)."
+
+msgid "No tools"
+msgstr "Sin herramientas"
+
+msgid "No tracked changes"
+msgstr "No hay cambios rastreados"
+
+msgid "No uncommitted changes"
+msgstr "No hay cambios sin confirmar"
+
+msgid "No usage by provider"
+msgstr "Sin uso por proveedor"
+
+msgid "No usage recorded yet"
+msgstr "Todavía no hay uso registrado"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Not configured"
+msgstr "Sin configurar"
+
+msgid "Offline"
+msgstr "Fuera de línea"
+
+msgid "Ollama (local)"
+msgstr "Ollama (local)"
+
+msgid "One per line"
+msgstr "Uno por línea"
+
+msgid "Online"
+msgstr "En línea"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid ""
+"Open a folder to work with files and terminal, or chat without a project."
+msgstr ""
+"Abre una carpeta para trabajar con archivos y terminal, o chatea sin "
+"proyecto."
+
+msgid "Open a project to mention its files"
+msgstr "Abre un proyecto para mencionar sus archivos"
+
+msgid "Open browser"
+msgstr "Abrir navegador"
+
+msgid "Open file"
+msgstr "Abrir archivo"
+
+msgid "Open files"
+msgstr "Abrir archivos"
+
+msgid "Open folder"
+msgstr "Abrir carpeta"
+
+msgid "Open ianox main window"
+msgstr "Abrir ventana principal de ianox"
+
+msgid "Open in"
+msgstr "Abrir en"
+
+msgid "Open in {app}"
+msgstr "Abrir en {app}"
+
+msgid "Open in…"
+msgstr "Abrir en…"
+
+msgid "Open main window"
+msgstr "Abrir ventana principal"
+
+msgid "Open or close the panel"
+msgstr "Abrir o cerrar el panel"
+
+msgid "Open panel"
+msgstr "Abrir panel"
+
+msgid "Open project"
+msgstr "Abrir proyecto"
+
+msgid "Open terminal"
+msgstr "Abrir terminal"
+
+msgid "Open the web dashboard"
+msgstr "Abrir el panel web"
+
+msgid "OpenAI, Anthropic and Ollama compatible API on localhost"
+msgstr "API compatible con OpenAI, Anthropic y Ollama en localhost"
+
+msgid "OpenAI, Anthropic, Ollama, OpenRouter and any compatible API."
+msgstr "OpenAI, Anthropic, Ollama, OpenRouter y cualquier API compatible."
+
+msgid "OpenAI-compatible proxy"
+msgstr "Proxy compatible con OpenAI"
+
+msgid "Other (OpenAI-compatible)"
+msgstr "Otro (compatible con OpenAI)"
+
+msgid "Output"
+msgstr "Salida"
+
+msgid "Path copied"
+msgstr "Ruta copiada"
+
+msgid "Permissions/policies"
+msgstr "Permisos y políticas"
+
+msgid ""
+"Pick a provider above. The URL and API key must belong to the same provider."
+msgstr ""
+"Elige el proveedor arriba. La URL y la API key deben ser del mismo proveedor."
+
+msgid "Plan mode: read-only"
+msgstr "Modo plan: solo lectura"
+
+msgid "Plan/Build modes"
+msgstr "Modos Plan/Build"
+
+msgid "Platform"
+msgstr "Plataforma"
+
+msgid "Plugin architecture, embedded server, web UI on :3080"
+msgstr "Arquitectura de plugins, servidor integrado, interfaz web en :3080"
+
+msgid "Plugin system (Cordis)"
+msgstr "Sistema de plugins (Cordis)"
+
+msgid "Plugins"
+msgstr "Complementos"
+
+msgid "Port"
+msgstr "Puerto"
+
+msgid "Portable, any distro"
+msgstr "Portátil, cualquier distribución"
+
+msgid "Preparing the workspace…"
+msgstr "Preparando el espacio de trabajo…"
+
+msgid "Preset"
+msgstr "Preajuste"
+
+msgid "Production build"
+msgstr "Compilación de producción"
+
+msgid "Project"
+msgstr "Proyecto"
+
+msgid "Project icon"
+msgstr "Icono del proyecto"
+
+msgid "Projects"
+msgstr "Proyectos"
+
+msgid "Provider"
+msgstr "Proveedor"
+
+msgid "Providers"
+msgstr "Proveedores"
+
+msgid "Pull/Delete"
+msgstr "Descargar/Eliminar"
+
+msgid "Quick actions"
+msgstr "Acciones rápidas"
+
+msgid "Quit"
+msgstr "Salir"
+
+msgid "Quit ianox"
+msgstr "Salir de ianox"
+
+msgid "REST API"
+msgstr "API REST"
+
+msgid "Read"
+msgstr "Leer"
+
+msgid "Recent"
+msgstr "Recientes"
+
+msgid "Recent activity"
+msgstr "Actividad reciente"
+
+msgid "Recent conversations"
+msgstr "Conversaciones recientes"
+
+msgid "Recently closed"
+msgstr "Cerradas recientemente"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "Remove from favorites"
+msgstr "Quitar de favoritos"
+
+msgid "Remove icon"
+msgstr "Quitar icono"
+
+msgid "Remove image"
+msgstr "Eliminar imagen"
+
+msgid "Remove project"
+msgstr "Quitar proyecto"
+
+msgid "Remove this project from the sidebar? Files are not deleted from disk."
+msgstr ""
+"¿Quitar este proyecto de la barra lateral? Los archivos no se borran del "
+"disco."
+
+msgid "Rename conversation"
+msgstr "Renombrar conversación"
+
+msgid "Reopen the last closed tab"
+msgstr "Reabrir la última pestaña cerrada"
+
+msgid "Requests"
+msgstr "Peticiones"
+
+msgid "Reset"
+msgstr "Restablecer"
+
+msgid "Reset everything"
+msgstr "Resetear todo"
+
+msgid "Reset settings to defaults?"
+msgstr "¿Restablecer configuración a valores por defecto?"
+
+msgid "Reveal in File Manager"
+msgstr "Mostrar en Gestor de archivos"
+
+msgid "Review"
+msgstr "Revisión"
+
+msgid "Review (git changes)"
+msgstr "Revisión (cambios de git)"
+
+msgid "Review changes"
+msgstr "Revisar cambios"
+
+msgid "Routes"
+msgstr "Rutas"
+
+msgid "Routing rules"
+msgstr "Rutas de enrutamiento"
+
+msgid "Runtime"
+msgstr "Entorno de ejecución"
+
+msgid "Sandbox, Flathub-ready"
+msgstr "Sandbox, listo para Flathub"
+
+msgid "Sandboxing"
+msgstr "Sandbox"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Save and start"
+msgstr "Guardar y empezar"
+
+msgid "Save changes"
+msgstr "Guardar cambios"
+
+msgid "Saving…"
+msgstr "Guardando…"
+
+msgid "Search conversations"
+msgstr "Buscar conversaciones"
+
+msgid "Search fonts"
+msgstr "Buscar fuentes"
+
+msgid "Search models"
+msgstr "Buscar modelos"
+
+msgid "Search models…"
+msgstr "Buscar modelos…"
+
+msgid "Select a file to open"
+msgstr "Selecciona un archivo para abrir"
+
+msgid "Select a file to see its diff."
+msgstr "Selecciona un archivo para ver su diff."
+
+msgid "Select a folder as the project"
+msgstr "Selecciona una carpeta como proyecto"
+
+msgid "Select model"
+msgstr "Seleccionar modelo"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Send when this answer ends"
+msgstr "Enviar cuando termine esta respuesta"
+
+msgid "Sent when the current answer finishes"
+msgstr "Se envía cuando termine la respuesta actual"
+
+msgid "Server"
+msgstr "Servidor"
+
+msgid "Server active on start"
+msgstr "Servidor activo al iniciar"
+
+msgid "Server started successfully"
+msgstr "Servidor iniciado correctamente"
+
+msgid "Server stopped"
+msgstr "Servidor detenido"
+
+msgid "Servers"
+msgstr "Servidores"
+
+msgid "Session"
+msgstr "Sesión"
+
+msgid "Session context"
+msgstr "Contexto de la sesión"
+
+msgid "Session options"
+msgstr "Opciones de la sesión"
+
+msgid "Set as default"
+msgstr "Predeterminar"
+
+msgid "Set up OpenAI, Anthropic, Ollama…"
+msgstr "Configura OpenAI, Anthropic, Ollama…"
+
+msgid "Set up your first provider"
+msgstr "Configura tu primer proveedor"
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "Settings are stored in the application data directory:"
+msgstr "La configuración se guarda en el directorio de datos de la aplicación:"
+
+msgid "Shell"
+msgstr "Terminal"
+
+msgid "Shift"
+msgstr "Mayús"
+
+msgid "Show ianox"
+msgstr "Mostrar ianox"
+
+msgid "Show less"
+msgstr "Ver menos"
+
+msgid "Show more"
+msgstr "Mostrar más"
+
+msgid "Show summary"
+msgstr "Ver resumen"
+
+msgid "Show {count} more lines"
+msgstr "Ver {count} líneas más"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "Skills"
+msgstr "Habilidades"
+
+msgid "Soplos Dark"
+msgstr "Soplos Oscuro"
+
+msgid "Soplos Light"
+msgstr "Soplos Claro"
+
+msgid "Spanish"
+msgstr "Español"
+
+msgid "Start server automatically"
+msgstr "Iniciar servidor automáticamente"
+
+msgid "Start with system"
+msgstr "Iniciar con el sistema"
+
+msgid "Starts the HTTP server when the app opens"
+msgstr "Arranca el servidor HTTP al abrir la app"
+
+msgid ""
+"Stdio connections, the same format as OpenCode. Add servers and test their "
+"tools."
+msgstr ""
+"Conexiones por stdio, el mismo formato que OpenCode. Añade servidores y "
+"prueba sus herramientas."
+
+msgid "Stop"
+msgstr "Detener"
+
+msgid "Switch agent"
+msgstr "Cambiar de agente"
+
+msgid "System"
+msgstr "Sistema"
+
+msgid "System Assistant"
+msgstr "Asistente del Sistema"
+
+msgid "System information"
+msgstr "Información del sistema"
+
+msgid "System prompt"
+msgstr "Prompt del sistema"
+
+msgid "Terminal"
+msgstr "Terminal"
+
+msgid "Test and load models"
+msgstr "Probar y cargar modelos"
+
+msgid "Test connection"
+msgstr "Probar conexión"
+
+msgid "Testing…"
+msgstr "Probando…"
+
+msgid "Text color"
+msgstr "Color del texto"
+
+msgid ""
+"That error comes from OpenAI. If your key is from DeepSeek, pick the "
+"DeepSeek preset (the URL must be https://api.deepseek.com/v1)."
+msgstr ""
+"Ese error viene de OpenAI. Si tu clave es de DeepSeek, elige el preset "
+"DeepSeek (la URL debe ser https://api.deepseek.com/v1)."
+
+msgid "The agent is asking permission"
+msgstr "El agente pide permiso"
+
+msgid "The agent wants to read a file outside the project"
+msgstr "El agente quiere leer un archivo fuera del proyecto"
+
+msgid "The agent wants to run a command"
+msgstr "El agente quiere ejecutar un comando"
+
+msgid ""
+"The catalog has no list for this provider; add its models by hand in "
+"Providers."
+msgstr ""
+"El catálogo no tiene lista para este proveedor; añade sus modelos a mano en "
+"Proveedores."
+
+msgid "The model returned an empty answer."
+msgstr "El modelo devolvió una respuesta vacía."
+
+msgid "The working tree is clean."
+msgstr "El árbol de trabajo está limpio."
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Theme and window"
+msgstr "Tema y ventana"
+
+msgid "Theme: {label} · click to change"
+msgstr "Tema: {label} · clic para cambiar"
+
+msgid "There is not enough conversation to compact yet."
+msgstr "Todavía no hay conversación suficiente para compactar."
+
+msgid "They are tried in this order. Check at least one."
+msgstr "Se probarán en este orden. Marca al menos uno."
+
+msgid "Thinking…"
+msgstr "Pensando…"
+
+msgid ""
+"This looks like a private file (keys or credentials). Its content would be "
+"sent to the model provider."
+msgstr ""
+"Parece un archivo privado (claves o credenciales). Su contenido se enviaría "
+"al proveedor del modelo."
+
+msgid ""
+"This system cannot isolate commands: it could write outside the project."
+msgstr ""
+"Este sistema no puede aislar comandos: podría escribir fuera del proyecto."
+
+msgid "Thought"
+msgstr "Pensamiento"
+
+msgid "Thoughts"
+msgstr "Pensamientos"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Toggle Assistant Widget"
+msgstr "Alternar Asistente Lateral"
+
+msgid "Tokens"
+msgstr "Tokens"
+
+msgid "Top models"
+msgstr "Modelos más usados"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total models"
+msgstr "Modelos totales"
+
+msgid "Truncated view (large file)"
+msgstr "Vista truncada (archivo grande)"
+
+msgid "Try another search or change the provider filter."
+msgstr "Prueba con otro texto o cambia el filtro de proveedor."
+
+msgid "Try the chat"
+msgstr "Probar el chat"
+
+msgid "Type a URL to browse. Some sites block iframes."
+msgstr "Escribe una URL para navegar. Algunas webs bloquean iframes."
+
+msgid "Type a font name"
+msgstr "Escribe el nombre de una fuente"
+
+msgid "Type a message. / for actions, @ for files"
+msgstr "Escribe un mensaje. / para acciones, @ para archivos"
+
+msgid "TypeScript/React"
+msgstr "TypeScript/React"
+
+msgid "Typography"
+msgstr "Tipografía"
+
+msgid "Unique identifier (no spaces)"
+msgstr "Identificador único (sin espacios)"
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "Unknown error"
+msgstr "Error desconocido"
+
+msgid "Untitled"
+msgstr "Sin título"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Updates"
+msgstr "Actualizaciones"
+
+msgid "Usage"
+msgstr "Uso"
+
+msgid "Usage chart"
+msgstr "Gráfica de uso"
+
+msgid "Usage over time"
+msgstr "Uso en el tiempo"
+
+msgid "Use"
+msgstr "Usa"
+
+msgid "Used {count} {tools}"
+msgstr "Se usó {count} {tools}"
+
+msgid "Used {count} {tools} [plural]"
+msgstr "Se usaron {count} {tools}"
+
+msgid "User"
+msgstr "Usuario"
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Version, references and status"
+msgstr "Versión, referencias y estado"
+
+msgid "View all"
+msgstr "Ver todas"
+
+msgid "View logs"
+msgstr "Ver logs"
+
+msgid "View preview"
+msgstr "Ver vista previa"
+
+msgid "View source"
+msgstr "Ver código fuente"
+
+msgid "Web UI"
+msgstr "Interfaz web"
+
+msgid "Weight"
+msgstr "Peso"
+
+msgid "When closing ianox"
+msgstr "Al cerrar ianox"
+
+msgid "When minimized, hides the window and leaves only the tray icon"
+msgstr "Al minimizar, oculta la ventana y deja solo el icono en la bandeja"
+
+msgid "White"
+msgstr "Blanco"
+
+msgid "Will test:"
+msgstr "Se probará:"
+
+msgid "Window behavior"
+msgstr "Comportamiento de la ventana"
+
+msgid "Without routes, routing will use any provider that has the model."
+msgstr ""
+"Sin rutas, el enrutamiento usará cualquier proveedor que tenga el modelo."
+
+msgid "Working…"
+msgstr "Trabajando…"
+
+msgid "Write"
+msgstr "Escribir"
+
+msgid "Write now: it goes out when this answer ends"
+msgstr "Escribe ahora: se envía cuando termine esta respuesta"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "You are a helpful, concise assistant."
+msgstr "Eres un asistente útil y conciso."
+
+msgid "active"
+msgstr "activo"
+
+msgid "apt install ./"
+msgstr "apt install ./"
+
+msgid "build — full access"
+msgstr "build — acceso total"
+
+msgid "chat model"
+msgstr "modelo del chat"
+
+msgid "chmod +x"
+msgstr "chmod +x"
+
+msgid "days"
+msgstr "días"
+
+msgid "dnf install ./"
+msgstr "dnf install ./"
+
+msgid "dpkg -i"
+msgstr "dpkg -i"
+
+msgid "fallback"
+msgstr "respaldo"
+
+msgid "flatpak install"
+msgstr "flatpak install"
+
+msgid "full access"
+msgstr "acceso total"
+
+msgid "ianox Dark"
+msgstr "ianox Oscuro"
+
+msgid "ianox Light"
+msgstr "ianox Claro"
+
+msgid "inactive"
+msgstr "inactivo"
+
+msgid "models"
+msgstr "modelos"
+
+msgid "more"
+msgstr "más"
+
+msgid "my-agent"
+msgstr "mi-agente"
+
+msgid "my-provider"
+msgstr "mi-proveedor"
+
+msgid "plan — read-only"
+msgstr "plan — solo lectura"
+
+msgid "prio."
+msgstr "prio."
+
+msgid "protocol {version}"
+msgstr "protocolo {version}"
+
+msgid "read-only"
+msgstr "solo lectura"
+
+msgid "route-1"
+msgstr "ruta-1"
+
+msgid "server"
+msgstr "servidor"
+
+msgid "staged"
+msgstr "preparado"
+
+msgid "to match everything, or prefixes like"
+msgstr "para coincidir con todo, o prefijos como"
+
+msgid "weight"
+msgstr "peso"
+
+msgid "{n} more — keep typing to narrow"
+msgstr "{n} más — sigue escribiendo para filtrar"
+
+msgid "{n} tools"
+msgstr "{n} herramientas"
+
+msgid "{providers} providers, {routes} routes"
+msgstr "{providers} proveedores, {routes} rutas"
+
+msgid "{used} of {limit} tokens of context ({percent}%) · {n} requests"
+msgstr "{used} de {limit} tokens de contexto ({percent} %) · {n} peticiones"
+
+msgid "{used} tokens · {n} requests"
+msgstr "{used} tokens · {n} peticiones"
+
+#~ msgid "Open panel (Ctrl+`)"
+#~ msgstr "Abrir panel (Ctrl+`)"
+
+#~ msgid "Dark"
+#~ msgstr "Oscuro"
+
+#~ msgid "Light"
+#~ msgstr "Claro"
+
+#~ msgid "Generating answer…"
+#~ msgstr "Generando respuesta…"
+
+#~ msgid "Close to tray"
+#~ msgstr "Cerrar a bandeja"
+
+#~ msgid "When closing the window the app stays in the tray"
+#~ msgstr "Al cerrar la ventana, no sale la app; se queda en la bandeja"
+
+#~ msgid "Thinking"
+#~ msgstr "Pensamiento"
+
+#~ msgid "Used {n} tool"
+#~ msgstr "Se usó {n} herramienta"
+
+#~ msgid "Used {n} tools"
+#~ msgstr "Se usaron {n} herramientas"

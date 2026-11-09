@@ -1,0 +1,92 @@
+.TH IANOX 1 "November 2026" "ianox 0.0.2" "User Commands"
+.SH NAME
+ianox \- local AI gateway, model manager and coding agent
+.SH SYNOPSIS
+.B ianox
+.SH DESCRIPTION
+.B ianox
+is a desktop application that brings three things together: a local gateway that can route
+requests across AI providers, a manager for local and cloud models, and a chat with a coding
+agent that works inside a project folder.
+.PP
+It is
+.B pre-alpha
+software. Expect rough edges, missing features and changes between versions.
+.PP
+.B ianox
+takes no command-line options. Starting it a second time brings the window of the running
+instance to the front instead of opening another one. The tray icon keeps the gateway
+reachable while the window is closed.
+.SH THE AGENT AND YOUR FILES
+The agent can read files and, in
+.I build
+mode, edit files and run shell commands. It is confined as follows:
+.IP \(bu 2
+Writing and editing are only allowed inside the project folder.
+.IP \(bu 2
+Shell commands ask for confirmation (you can allow them for the rest of a conversation). When
+.BR bwrap (1)
+is installed they run in a sandbox where everything outside the project folder (and
+.IR /tmp )
+is read-only. Without it, commands run unsandboxed and the confirmation says so.
+.IP \(bu 2
+Reading outside the project needs your permission, unless you wrote the path in your own
+message or attached the file. Private locations such as
+.I ~/.ssh
+ask every time, even if you named them.
+.PP
+The
+.I plan
+mode is read-only.
+.SH FILES
+.TP
+.I ~/.config/ianox/config.json
+Providers (including API keys, stored as plain text), routes, agents, projects and interface
+settings. Create it by using the application; edit it only while ianox is closed.
+.TP
+.I ~/.config/ianox/sessions.json
+Saved conversations.
+.TP
+.I ~/.config/ianox/usage.jsonl
+One line per model request: tokens, latency and the conversation it belongs to.
+.TP
+.I ~/.config/ianox/pricing.json
+Price per million tokens used to estimate cost. Editable.
+.TP
+.I ~/.config/ianox/models-cache-v2.json
+Cache of the model catalogue downloaded from models.dev (refreshed daily).
+.TP
+.I ~/.local/share/io.github.subdes.ianox/
+Window position and size.
+.PP
+Choices made in the interface such as fonts, favorite models and the open tabs are kept in the
+local storage of the application's web view.
+.SH ENVIRONMENT
+.TP
+.B XDG_CONFIG_HOME
+Base directory for the configuration files above. Defaults to
+.IR ~/.config .
+.TP
+.B SHELL
+Shell started in the integrated terminal.
+.SH NETWORK
+ianox does not send telemetry. It connects only to:
+.IP \(bu 2
+The AI providers you configure, with the credentials you give it.
+.IP \(bu 2
+https://models.dev, to download the model catalogue.
+.IP \(bu 2
+Whatever the agent's commands or the integrated browser are asked to reach.
+.PP
+When the gateway is enabled it listens on
+.I 127.0.0.1:20128
+by default. Its chat endpoint supports streaming only at this stage; other endpoints return
+501 until implemented.
+.SH SEE ALSO
+.BR bwrap (1)
+.SH BUGS
+Report problems at
+.UR https://github.com/Subdes/ianox/issues
+.UE .
+.SH AUTHOR
+Subdes (https://github.com/Subdes). Released under the MIT License.

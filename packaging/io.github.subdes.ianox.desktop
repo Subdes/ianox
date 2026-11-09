@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=ianox
+GenericName=AI Gateway and Coding Agent
+GenericName[es]=Pasarela de IA y agente de programación
+Comment=Local AI gateway, model manager and coding agent
+Comment[es]=Pasarela de IA local, gestor de modelos y agente de programación
+Exec=ianox
+Icon=io.github.subdes.ianox
+Terminal=false
+Categories=Development;
+Keywords=AI;LLM;gateway;agent;chat;
+StartupWMClass=ianox

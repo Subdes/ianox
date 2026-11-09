@@ -1,0 +1,112 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ianox",
+  "version": "0.0.3",
+  "identifier": "io.github.subdes.ianox",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:5183",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "label": "main",
+        "title": "ianox",
+        "width": 1320.0,
+        "height": 860.0,
+        "minWidth": 960.0,
+        "minHeight": 620.0,
+        "center": true,
+        "resizable": true,
+        "decorations": false,
+        "transparent": true,
+        "visible": false,
+        "dragDropEnabled": true
+      },
+      {
+        "label": "assistant",
+        "title": "ianox Assistant",
+        "width": 420.0,
+        "height": 800.0,
+        "resizable": true,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "visible": false,
+        "dragDropEnabled": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**"]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "DeveloperTool",
+    "shortDescription": "Local AI gateway, model manager and coding agent",
+    "longDescription": "ianox brings a local OpenAI-compatible gateway, a model manager and a coding agent into one desktop app: route requests across providers with fallbacks, manage local and cloud models, and chat with an agent that works inside your project. Pre-alpha software: expect rough edges.",
+    "copyright": "Copyright (c) 2026 Subdes",
+    "publisher": "Subdes",
+    "homepage": "https://github.com/Subdes/ianox",
+    "linux": {
+      "deb": {
+        "section": "devel",
+        "priority": "optional",
+        "depends": [],
+        "recommends": [
+          "bubblewrap"
+        ],
+        "files": {
+          "/usr/share/metainfo/io.github.subdes.ianox.metainfo.xml": "../packaging/io.github.subdes.ianox.metainfo.xml",
+          "/usr/share/man/man1/ianox.1": "../packaging/man/ianox.1",
+          "/usr/share/doc/ianox/copyright": "../packaging/debian/copyright",
+          "/usr/share/doc/ianox/THIRD_PARTY_NOTICES.md": "../THIRD_PARTY_NOTICES.md",
+          "/usr/share/doc/ianox/CHANGELOG.md": "../CHANGELOG.md"
+        }
+      },
+      "appimage": {
+        "bundleMediaFramework": false
+      },
+      "rpm": {
+        "release": "1",
+        "depends": [],
+        "recommends": [
+          "bubblewrap"
+        ],
+        "files": {
+          "/usr/share/metainfo/io.github.subdes.ianox.metainfo.xml": "../packaging/io.github.subdes.ianox.metainfo.xml",
+          "/usr/share/man/man1/ianox.1": "../packaging/man/ianox.1",
+          "/usr/share/licenses/ianox/LICENSE": "../LICENSE",
+          "/usr/share/doc/ianox/THIRD_PARTY_NOTICES.md": "../THIRD_PARTY_NOTICES.md",
+          "/usr/share/doc/ianox/CHANGELOG.md": "../CHANGELOG.md"
+        }
+      }
+    },
+    "macOS": {
+      "minimumSystemVersion": "10.15"
+    },
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      }
+    },
+    "license": "MIT",
+    "licenseFile": "../LICENSE"
+  }
+}

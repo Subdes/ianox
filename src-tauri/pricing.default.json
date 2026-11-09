@@ -1,0 +1,33 @@
+{
+  "_comment": "Precios de referencia en USD por 1M de tokens (entrada/salida). Editable: ianox lee este fichero en ~/.config/ianox/pricing.json. Los modelos locales (Ollama) no se cobran.",
+  "models": [
+    { "pattern": "gpt-4o-mini", "input": 0.15, "output": 0.6 },
+    { "pattern": "gpt-4o", "input": 2.5, "output": 10.0 },
+    { "pattern": "gpt-4.1-nano", "input": 0.1, "output": 0.4 },
+    { "pattern": "gpt-4.1-mini", "input": 0.4, "output": 1.6 },
+    { "pattern": "gpt-4.1", "input": 2.0, "output": 8.0 },
+    { "pattern": "gpt-4-turbo", "input": 10.0, "output": 30.0 },
+    { "pattern": "o4-mini", "input": 1.1, "output": 4.4 },
+    { "pattern": "o3-mini", "input": 1.1, "output": 4.4 },
+    { "pattern": "o3", "input": 2.0, "output": 8.0 },
+    { "pattern": "claude-opus-4", "input": 15.0, "output": 75.0 },
+    { "pattern": "claude-sonnet-4", "input": 3.0, "output": 15.0 },
+    { "pattern": "claude-3-7-sonnet", "input": 3.0, "output": 15.0 },
+    { "pattern": "claude-3-5-sonnet", "input": 3.0, "output": 15.0 },
+    { "pattern": "claude-3-5-haiku", "input": 0.8, "output": 4.0 },
+    { "pattern": "claude-3-opus", "input": 15.0, "output": 75.0 },
+    { "pattern": "deepseek-reasoner", "input": 0.55, "output": 2.19 },
+    { "pattern": "deepseek-chat", "input": 0.27, "output": 1.1 },
+    { "pattern": "gemini-2.5-pro", "input": 1.25, "output": 10.0 },
+    { "pattern": "gemini-2.5-flash", "input": 0.3, "output": 2.5 },
+    { "pattern": "gemini-1.5-pro", "input": 1.25, "output": 5.0 },
+    { "pattern": "gemini-1.5-flash", "input": 0.075, "output": 0.3 },
+    { "pattern": "mistral-large", "input": 2.0, "output": 6.0 },
+    { "pattern": "mistral-small", "input": 0.2, "output": 0.6 },
+    { "pattern": "qwen-max", "input": 1.2, "output": 6.0 },
+    { "pattern": "qwen-plus", "input": 0.4, "output": 1.2 },
+    { "pattern": "command-r-plus", "input": 2.5, "output": 10.0 },
+    { "pattern": "grok-4", "input": 3.0, "output": 15.0 },
+    { "pattern": "grok-3", "input": 3.0, "output": 15.0 }
+  ]
+}

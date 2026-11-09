@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.subdes.ianox</id>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+
+  <name>ianox</name>
+  <summary>Local AI gateway, model manager and coding agent</summary>
+  <summary xml:lang="es">Pasarela de IA local, gestor de modelos y agente de programación</summary>
+
+  <developer id="io.github.subdes">
+    <name>Subdes</name>
+  </developer>
+
+  <description>
+    <p>
+      ianox brings a local gateway, a model manager and a coding agent into one desktop
+      application. Connect the AI providers you use, pick a model and chat with an agent
+      that works inside your project: it reads and edits files and runs commands, always
+      within the project folder and asking before it runs anything.
+    </p>
+    <p xml:lang="es">
+      ianox reúne una pasarela local, un gestor de modelos y un agente de programación en una
+      sola aplicación de escritorio. Conecta los proveedores de IA que uses, elige un modelo y
+      conversa con un agente que trabaja dentro de tu proyecto: lee y edita archivos y ejecuta
+      comandos, siempre dentro de la carpeta del proyecto y preguntando antes de ejecutar nada.
+    </p>
+    <p>This is pre-alpha software. Expect rough edges and changes between versions.</p>
+    <p xml:lang="es">Es software pre-alfa. Espera asperezas y cambios entre versiones.</p>
+    <ul>
+      <li>OpenAI, Anthropic, OpenRouter, Ollama, Google, Azure and custom OpenAI-compatible providers</li>
+      <li xml:lang="es">OpenAI, Anthropic, OpenRouter, Ollama, Google, Azure y proveedores compatibles con OpenAI</li>
+      <li>A model picker with search, favorites and each model's context window</li>
+      <li xml:lang="es">Selector de modelos con búsqueda, favoritos y la ventana de contexto de cada modelo</li>
+      <li>An agent with a read-only plan mode and a build mode that can edit files</li>
+      <li xml:lang="es">Un agente con modo plan de solo lectura y modo build que puede editar archivos</li>
+      <li>Context meter with estimated cost, and automatic compaction of long conversations</li>
+      <li xml:lang="es">Indicador de contexto con coste estimado y compactación automática de conversaciones largas</li>
+      <li>Integrated terminal, file explorer, git review and browser</li>
+      <li xml:lang="es">Terminal integrado, explorador de archivos, revisión de git y navegador</li>
+      <li>No telemetry: it only talks to the providers you configure</li>
+      <li xml:lang="es">Sin telemetría: solo habla con los proveedores que configures</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">ianox.desktop</launchable>
+  <icon type="stock">ianox</icon>
+
+  <categories>
+    <category>Development</category>
+  </categories>
+  <keywords>
+    <keyword>AI</keyword>
+    <keyword>LLM</keyword>
+    <keyword>gateway</keyword>
+    <keyword>agent</keyword>
+    <keyword>chat</keyword>
+  </keywords>
+
+  <url type="homepage">https://github.com/Subdes/ianox</url>
+  <url type="bugtracker">https://github.com/Subdes/ianox/issues</url>
+  <url type="vcs-browser">https://github.com/Subdes/ianox</url>
+
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://raw.githubusercontent.com/Subdes/ianox/main/docs/screenshots/01-chat.png</image>
+      <caption>A conversation with the coding agent, with the context meter in the header</caption>
+      <caption xml:lang="es">Una conversación con el agente de programación, con el indicador de contexto en la cabecera</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/Subdes/ianox/main/docs/screenshots/02-agent-tools.png</image>
+      <caption>Tool calls grouped and timed, with the diff of an edit</caption>
+      <caption xml:lang="es">Llamadas a herramientas agrupadas y cronometradas, con el diff de una edición</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/Subdes/ianox/main/docs/screenshots/03-model-picker.png</image>
+      <caption>Model picker with search, favorites and context windows</caption>
+      <caption xml:lang="es">Selector de modelos con búsqueda, favoritos y ventanas de contexto</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/Subdes/ianox/main/docs/screenshots/04-workspace.png</image>
+      <caption>Chat next to the integrated terminal and git review</caption>
+      <caption xml:lang="es">Chat junto al terminal integrado y la revisión de git</caption>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/Subdes/ianox/main/docs/screenshots/05-dashboard.png</image>
+      <caption>Usage dashboard with tokens and estimated cost</caption>
+      <caption xml:lang="es">Panel de uso con tokens y coste estimado</caption>
+    </screenshot>
+  </screenshots>
+
+  <provides>
+    <binary>ianox</binary>
+  </provides>
+
+  <requires>
+    <display_length compare="ge">900</display_length>
+  </requires>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </supports>
+
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="0.0.2" date="2026-11-09" type="development">
+      <description>
+        <p>Pasted images, queued messages, more providers and a real file diff.</p>
+      </description>
+      <url type="details">https://github.com/Subdes/ianox/releases/tag/v0.0.2</url>
+    </release>
+    <release version="0.0.1" date="2026-11-04" type="development">
+      <description>
+        <p>First public pre-alpha.</p>
+      </description>
+      <url type="details">https://github.com/Subdes/ianox/releases/tag/v0.0.1</url>
+    </release>
+  </releases>
+</component>

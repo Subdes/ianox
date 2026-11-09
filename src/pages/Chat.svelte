@@ -320,10 +320,13 @@
   /** Whether the streamed answer should keep the view pinned to the newest line. */
   let stickToBottom = $state(true);
   let chatScroll: HTMLDivElement;
+  let _programmaticScroll = false;
 
   function followStream(): void {
     const el = chatScroll;
     if (!el) return;
+    // Si el scroll fue programático, ignoramos este evento y no cambiamos stickToBottom
+    if (_programmaticScroll) { _programmaticScroll = false; return; }
     // Stop following as soon as the user scrolls up to read something.
     stickToBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
   }
@@ -336,7 +339,9 @@
     if (!stickToBottom) return;
     tick().then(() => {
       const el = chatScroll;
-      if (el) el.scrollTop = el.scrollHeight;
+      if (!el || !stickToBottom) return;
+      _programmaticScroll = true;
+      el.scrollTop = el.scrollHeight;
     });
   });
 

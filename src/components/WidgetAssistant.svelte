@@ -18,6 +18,8 @@
   let inputEl: HTMLTextAreaElement | undefined = $state();
   let copied = $state(false);
   let isClosing = $state(false);
+  let currentRequestId = $state<string | null>(null);
+  let activeListeners: UnlistenFn[] = [];
   let animKey = $state(0);
 
   onMount(() => {
@@ -101,6 +103,10 @@
       unlistenClose?.();
       window.removeEventListener("focus", handleFocus);
       window.removeEventListener("keydown", handleKey);
+      cleanupListeners();
+      if (currentRequestId) {
+        invoke("chat_cancel", { requestId: currentRequestId }).catch(() => {});
+      }
     };
   });
 
@@ -128,6 +134,20 @@
     }
   }
 
+  function cleanupListeners(): void {
+    activeListeners.forEach((fn) => fn());
+    activeListeners = [];
+  }
+
+  function handleStop(): void {
+    if (currentRequestId) {
+      invoke("chat_cancel", { requestId: currentRequestId }).catch(() => {});
+    }
+    sending = false;
+    currentRequestId = null;
+    cleanupListeners();
+  }
+
   function handleClear(): void {
     responseText = "";
     query = "";
@@ -149,30 +169,57 @@
     const text = query.trim();
     if (!text || sending) return;
 
+    const model = selectedModel;
+    if (!model) { responseText = t("No model selected"); return; }
+
     sending = true;
     responseText = "";
-    try {
-      const systemPrompt =
-        agentMode === "code"
-          ? "Eres el Asistente de Sistema de ianox especializado en código, scripts y comandos técnicos. Ofrece soluciones directas, snippets limpios y explicaciones concisas sin rodeos."
-          : "Eres el Asistente de Sistema de ianox. Ayudas al usuario con cualquier consulta, duda, redacción, análisis o tarea en su ordenador de forma rápida, clara y precisa.";
+    cleanupListeners();
 
-      const res = await invoke<{ choices?: { message?: { content?: string } }[] }>("chat_completion", {
-        request: {
-          model: selectedModel || undefined,
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: text }
-          ],
-          stream: false
-        }
+    const requestId = crypto.randomUUID();
+    currentRequestId = requestId;
+    const add = (fn: UnlistenFn) => activeListeners.push(fn);
+
+    const systemPrompt =
+      agentMode === "code"
+        ? "Eres el Asistente de Sistema de ianox especializado en código, scripts y comandos técnicos. Ofrece soluciones directas, snippets limpios y explicaciones concisas sin rodeos."
+        : "Eres el Asistente de Sistema de ianox. Ayudas al usuario con cualquier consulta, duda, redacción, análisis o tarea en su ordenador de forma rápida, clara y precisa.";
+
+    try {
+      add(await listen<string>(`chat://delta/${requestId}`, (event) => {
+        responseText += event.payload;
+      }));
+      add(await listen(`chat://done/${requestId}`, () => {
+        sending = false;
+        currentRequestId = null;
+        cleanupListeners();
+        query = "";
+      }));
+      add(await listen<string>(`chat://error/${requestId}`, (event) => {
+        responseText = `${t("Error")}: ${event.payload}`;
+        sending = false;
+        currentRequestId = null;
+        cleanupListeners();
+      }));
+
+      await invoke("chat_stream", {
+        requestId,
+        model,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: text }
+        ],
+        temperature: null,
+        maxTokens: null,
+        sessionId: null,
+        agentMode: agentMode === "code" ? "build" : "chat",
+        providerId: null
       });
-      responseText = res?.choices?.[0]?.message?.content ?? t("No response");
-      query = "";
     } catch (err) {
       responseText = `${t("Error")}: ${err}`;
-    } finally {
       sending = false;
+      currentRequestId = null;
+      cleanupListeners();
     }
   }
 </script>
@@ -297,7 +344,7 @@
         <button
           type="button"
           class="composer-send stop"
-          onclick={handleClear}
+          onclick={handleStop}
           title={t("Stop")}
         >
           <Icon name="stop" size={14} />

@@ -342,6 +342,7 @@ body,
   display: flex;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
 }
 
 /* ── Custom title bar ── */
@@ -541,7 +542,9 @@ body,
   background: var(--bg-secondary);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-md);
-  overflow: hidden;
+  /* overflow:hidden + border-radius causa repaints en blanco con WebKitGTK;
+     clip-path recorta las esquinas sin crear un stacking context de compositing */
+  clip-path: inset(0 round var(--radius-md));
 }
 .chat-toolbar {
   display: flex;
@@ -595,11 +598,16 @@ body,
 }
 .chat-scroll {
   flex: 1;
-  overflow: auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+.chat-scroll > * {
+  flex-shrink: 0;
 }
 .chat-empty-actions {
   display: flex;
@@ -1230,7 +1238,7 @@ input[type="range"] { accent-color: var(--accent-primary); }
 input[type="checkbox"] { accent-color: var(--accent-primary); }
 
 /* The chat has no page header: it uses the full height */
-.page-content.chat-content { padding: 12px 16px 14px; }
+.page-content.chat-content { overflow: hidden; padding: 12px 16px 14px; }
 
 /* Panel lateral derecho (Archivos / Terminal) */
 .side-resizer {

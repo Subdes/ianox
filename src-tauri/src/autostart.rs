@@ -5,6 +5,7 @@
 //! - macOS: LaunchAgents plist
 //! - Windows: registro de usuario Run
 
+#[cfg(any(target_os = "linux", target_os = "macos"))]
 use std::path::PathBuf;
 
 /// Ruta al archivo de autostart en Linux

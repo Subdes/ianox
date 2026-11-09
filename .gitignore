@@ -1,6 +1,8 @@
 # Dependencies and build output
 node_modules/
 dist/
+dist-packages/
+.bin/
 src-tauri/target/
 src-tauri/gen/schemas/
 *.log

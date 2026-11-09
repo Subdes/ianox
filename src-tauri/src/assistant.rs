@@ -6,9 +6,10 @@
 //! - macOS y Windows: posicionamiento en monitor activo con fallback dinámico.
 //! - Atajo global del sistema y toggling instantáneo.
 
+#[cfg(target_os = "linux")]
+use tauri::{LogicalPosition, LogicalSize};
 use tauri::{
-    AppHandle, Emitter, LogicalPosition, LogicalSize, Manager, PhysicalPosition, PhysicalSize,
-    Runtime, WebviewWindow,
+    AppHandle, Emitter, Manager, PhysicalPosition, PhysicalSize, Runtime, WebviewWindow,
 };
 
 pub const ASSISTANT_WINDOW: &str = "assistant";

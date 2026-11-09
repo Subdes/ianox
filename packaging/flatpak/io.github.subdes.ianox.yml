@@ -4,7 +4,7 @@
 #   flatpak-builder --user --install --force-clean build-dir packaging/flatpak/io.github.subdes.ianox.yml
 # Make a distributable bundle:
 #   flatpak-builder --force-clean --repo=repo build-dir packaging/flatpak/io.github.subdes.ianox.yml
-#   flatpak build-bundle repo ianox-0.0.1.flatpak io.github.subdes.ianox
+#   flatpak build-bundle repo ianox-0.0.3.flatpak io.github.subdes.ianox
 #
 # This manifest downloads npm and cargo dependencies while it builds (`--share=network`),
 # which is fine for a local build or a bundle but not accepted by Flathub, which needs
@@ -53,8 +53,8 @@ modules:
       # Inside Flatpak the desktop file and the icon carry the application id.
       - sed -i 's|<launchable type="desktop-id">ianox.desktop|<launchable type="desktop-id">io.github.subdes.ianox.desktop|; s|<icon type="stock">ianox<|<icon type="stock">io.github.subdes.ianox<|' /app/share/metainfo/io.github.subdes.ianox.metainfo.xml
       - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/io.github.subdes.ianox.png
-      - install -Dm644 src-tauri/icons/256x256.png /app/share/icons/hicolor/256x256/apps/io.github.subdes.ianox.png
-      - install -Dm644 src-tauri/icons/512x512.png /app/share/icons/hicolor/512x512/apps/io.github.subdes.ianox.png
+      - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/io.github.subdes.ianox.png
+      - install -Dm644 src-tauri/icons/source.png /app/share/icons/hicolor/512x512/apps/io.github.subdes.ianox.png
       - install -Dm644 branding/ianox-icon.svg /app/share/icons/hicolor/scalable/apps/io.github.subdes.ianox.svg
       - install -Dm644 packaging/man/ianox.1 /app/share/man/man1/ianox.1
       - install -Dm644 LICENSE /app/share/licenses/io.github.subdes.ianox/LICENSE

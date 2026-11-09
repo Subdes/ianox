@@ -105,6 +105,12 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="0.0.3" date="2026-11-09" type="development">
+      <description>
+        <p>Tray enriched, autostart support, cross-platform terminal shortcuts, contextual open-in menu, and animated floating assistant.</p>
+      </description>
+      <url type="details">https://github.com/Subdes/ianox/releases/tag/v0.0.3</url>
+    </release>
     <release version="0.0.2" date="2026-11-09" type="development">
       <description>
         <p>Pasted images, queued messages, more providers and a real file diff.</p>

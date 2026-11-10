@@ -2,10 +2,11 @@
 # scripts/bundle-flatpak.sh — Empaqueta el bundle .flatpak
 set -e
 
+VERSION=$(node -p "require('./package.json').version")
 MANIFEST="packaging/flatpak/io.github.subdes.ianox.yml"
 REPO_DIR="src-tauri/target/flatpak-repo"
 BUILD_DIR="src-tauri/target/flatpak-build"
-OUT_BUNDLE="dist-packages/ianox_0.0.3_x86_64.flatpak"
+OUT_BUNDLE="dist-packages/ianox_${VERSION}_x86_64.flatpak"
 
 mkdir -p dist-packages
 

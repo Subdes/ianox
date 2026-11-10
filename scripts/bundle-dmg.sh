@@ -3,7 +3,7 @@
 set -e
 
 APP_NAME="ianox"
-VERSION="0.0.3"
+VERSION=$(node -p "require('./package.json').version")
 mkdir -p dist-packages
 
 bundle_arch() {

@@ -1,7 +1,7 @@
 {
   "name": "ianox",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "ianox — local AI gateway, model manager and coding agent for the desktop (pre-alpha)",
   "type": "module",
   "scripts": {

@@ -105,6 +105,12 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="0.0.6" date="2026-11-10" type="development">
+      <description>
+        <p>Floating tiling assistant anchor, unfocused system notifications, and GitHub Releases auto-updater.</p>
+      </description>
+      <url type="details">https://github.com/Subdes/ianox/releases/tag/v0.0.6</url>
+    </release>
     <release version="0.0.3" date="2026-11-09" type="development">
       <description>
         <p>Tray enriched, autostart support, cross-platform terminal shortcuts, contextual open-in menu, and animated floating assistant.</p>

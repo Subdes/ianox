@@ -2,8 +2,9 @@
 # scripts/bundle-msi.sh — Compila ianox.wxs a .msi usando wixl (msitools)
 set -e
 
+VERSION=$(node -p "require('./package.json').version")
 WXS_SOURCE="packaging/windows/ianox.wxs"
-OUT_MSI="dist-packages/ianox_0.0.3_x64.msi"
+OUT_MSI="dist-packages/ianox_${VERSION}_x64.msi"
 EXE_BIN="src-tauri/target/x86_64-pc-windows-gnu/release/ianox.exe"
 
 if [ ! -f "$EXE_BIN" ]; then

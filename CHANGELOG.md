@@ -8,6 +8,19 @@ project follows [Semantic Versioning](https://semver.org/). Versions below `0.1.
 
 ## [Unreleased]
 
+## [0.0.6] - 2026-11-10
+
+Corrección de posicionamiento del Asistente Flotante en gestores tiling (anclaje lateral derecho persistente) y unificación dinámica de versiones en todo el pipeline de empaquetado (.deb, .rpm, .AppImage, .flatpak, .msi, .dmg).
+
+### Fixed
+
+- **Posicionamiento y anclaje lateral derecho en Tiling (`assistant.rs`):**
+  - Desactivación explícita del centrado automático del gestor de ventanas (`gtk::WindowPosition::None`, gravedad `NorthEast`).
+  - Posicionamiento directo a bajo nivel con `gtk_win.move_()` y `resize()`.
+  - Re-anclaje post-mapeo con verificación a los 60ms para evitar que KWin o Mutter fuercen la ventana al centro de la pantalla durante la animación de entrada.
+- **Unificación de versiones en scripts de empaquetado:**
+  - `bundle-msi.sh`, `bundle-dmg.sh`, `bundle-flatpak.sh` y `collect-packages.sh` ahora extraen dinámicamente la versión desde `package.json`, asegurando que todos los artefactos lleven la versión exacta de la release.
+
 ## [0.0.5] - 2026-11-10
 
 Notificaciones del sistema cuando la ventana no está en foco y buscador de actualizaciones directas desde GitHub Releases con descarga e instalación por plataforma.

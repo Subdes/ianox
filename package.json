@@ -1,7 +1,7 @@
 {
   "name": "ianox",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ianox — local AI gateway, model manager and coding agent for the desktop (pre-alpha)",
   "type": "module",
   "scripts": {
@@ -12,8 +12,11 @@
     "dev:app": "tauri dev",
     "build:app": "tauri build",
     "build:win": "tauri build --target x86_64-pc-windows-gnu",
-    "build:mac": "PATH=\"$PWD/.bin:$PATH\" cargo zigbuild --manifest-path src-tauri/Cargo.toml --target x86_64-apple-darwin --release",
-    "build:all": "npm run build:app && npm run build:win && ./scripts/collect-packages.sh",
+    "build:mac": "PATH=\"$PWD/.bin:$PATH\" SDKROOT=\"$HOME/MacOSX-SDK/MacOSX11.3.sdk\" cargo zigbuild --manifest-path src-tauri/Cargo.toml --target x86_64-apple-darwin --release",
+    "build:all": "npm run build:app && npm run build:win && npm run build:mac && ./scripts/bundle-dmg.sh && ./scripts/bundle-msi.sh && ./scripts/bundle-flatpak.sh && ./scripts/collect-packages.sh",
+    "bundle:dmg": "./scripts/bundle-dmg.sh",
+    "bundle:msi": "./scripts/bundle-msi.sh",
+    "bundle:flatpak": "./scripts/bundle-flatpak.sh",
     "collect": "./scripts/collect-packages.sh",
     "icons": "node scripts/gen-icon.mjs && tauri icon src-tauri/icons/source.png",
     "check": "svelte-check --tsconfig ./tsconfig.json",

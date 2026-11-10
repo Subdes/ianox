@@ -1,6 +1,6 @@
 [package]
 name = "ianox"
-version = "0.0.3"
+version = "0.0.4"
 description = "ianox — local AI gateway, model manager and coding agent for the desktop (pre-alpha)"
 authors = ["Subdes"]
 edition = "2021"

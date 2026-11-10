@@ -9,11 +9,20 @@
   import { listen, type UnlistenFn } from "@tauri-apps/api/event";
   import type { Config, ModelInfo } from "../types";
 
+  interface ProviderInfo {
+    id: string;
+    name: string;
+    enabled: boolean;
+    models: string[];
+  }
+
   let query = $state("");
   let sending = $state(false);
   let responseText = $state("");
   let models = $state<ModelInfo[]>([]);
   let selectedModel = $state<string>("");
+  let providers = $state<ProviderInfo[]>([]);
+  let selectedProvider = $state<string>("");
   let agentMode = $state<"ask" | "code">("ask");
   let inputEl: HTMLTextAreaElement | undefined = $state();
   let copied = $state(false);
@@ -76,6 +85,20 @@
         models = data;
         if (data.length > 0 && !selectedModel) {
           selectedModel = data[0].id;
+        }
+      })
+      .catch(() => {});
+
+    // Cargar proveedores habilitados
+    invoke<ProviderInfo[]>("list_providers")
+      .then((data) => {
+        providers = data.filter((p) => p.enabled);
+        if (providers.length > 0 && !selectedProvider) {
+          selectedProvider = providers[0].id;
+          // Si el proveedor tiene modelos propios, preseleccionar el primero
+          if (providers[0].models.length > 0) {
+            selectedModel = providers[0].models[0];
+          }
         }
       })
       .catch(() => {});
@@ -213,7 +236,7 @@
         maxTokens: null,
         sessionId: null,
         agentMode: agentMode === "code" ? "build" : "chat",
-        providerId: null
+        providerId: selectedProvider || null
       });
     } catch (err) {
       responseText = `${t("Error")}: ${err}`;
@@ -278,14 +301,37 @@
       </button>
     </div>
 
-    <!-- Selector de Modelo -->
-    {#if models.length > 0}
-      <select bind:value={selectedModel} class="widget-select model-select" title={t("Active model")}>
-        {#each models as m (m.id)}
-          <option value={m.id}>{m.id}</option>
-        {/each}
-      </select>
-    {/if}
+    <!-- Selector de Proveedor + Modelo -->
+    <div class="widget-selects">
+      {#if providers.length > 0}
+        <select
+          bind:value={selectedProvider}
+          class="widget-select"
+          title={t("Active provider")}
+          onchange={() => {
+            const prov = providers.find((p) => p.id === selectedProvider);
+            if (prov && prov.models.length > 0) selectedModel = prov.models[0];
+          }}
+        >
+          {#each providers as p (p.id)}
+            <option value={p.id}>{p.name}</option>
+          {/each}
+        </select>
+      {/if}
+      {#if models.length > 0}
+        {@const providerModels = selectedProvider
+          ? (providers.find((p) => p.id === selectedProvider)?.models ?? [])
+          : []}
+        {@const displayModels = providerModels.length > 0
+          ? models.filter((m) => providerModels.includes(m.id))
+          : models}
+        <select bind:value={selectedModel} class="widget-select" title={t("Active model")}>
+          {#each displayModels as m (m.id)}
+            <option value={m.id}>{m.id}</option>
+          {/each}
+        </select>
+      {/if}
+    </div>
   </div>
 
   <!-- Área de contenido / respuesta -->
@@ -512,6 +558,14 @@
     display: flex;
     align-items: center;
     gap: 6px;
+  }
+
+  .widget-selects {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 1;
+    min-width: 0;
   }
 
   .widget-select {

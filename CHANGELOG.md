@@ -8,7 +8,33 @@ project follows [Semantic Versioning](https://semver.org/). Versions below `0.1.
 
 ## [Unreleased]
 
-## [0.0.3] - 2026-11-09
+## [0.0.4] - 2026-11-10
+
+Corrección de inicio minimizado en bandeja, asistente flotante con streaming y selector de proveedor, correcciones de scroll y layouts flex en chat, y scripts multiplataforma de empaquetado (.msi, .dmg, .flatpak).
+
+### Added
+
+- **Selector de Proveedor en Asistente Flotante (`WidgetAssistant.svelte`):**
+  - Selector dinámico de proveedores habilitados en la barra de opciones junto al selector de modelo.
+  - Filtrado reactivo de modelos según el proveedor seleccionado y envío del parámetro `providerId` a `chat_stream`.
+- **Soporte de empaquetado multi-distribución y multiplataforma:**
+  - Script y manifiesto WiX (`packaging/windows/ianox.wxs`, `scripts/bundle-msi.sh`) compatibles con `wixl` para generar instalador nativo `.msi` en Windows.
+  - Script `scripts/bundle-dmg.sh` con generación dual de `.dmg` y `.app.tar.gz` para macOS.
+  - Script y manifiesto `scripts/bundle-flatpak.sh` con runtime GNOME 51 e iconos de alta resolución.
+  - Script unificador `scripts/collect-packages.sh` y comando maestro `npm run build:all`.
+
+### Fixed
+
+- **Arranque minimizado en inicio automático (`main.rs`):**
+  - Lectura de argumentos `--minimized` y `--hidden` al arrancar. Si la bandeja del sistema está inicializada y disponible, la ventana principal se mantiene oculta, evitando aperturas invasivas al inicio de sesión.
+- **Asistente Flotante con Streaming y Cancelación (`WidgetAssistant.svelte`):**
+  - Migración completa del comando stub `chat_completion` al motor reactivo `chat_stream` con eventos `chat://delta`, `chat://done` y `chat://error`.
+  - Botón de cancelación inmediata (`handleStop`) conectado a `chat_cancel` y limpieza adecuada de listeners al desmontar el componente.
+- **Doble scroll y compresión de mensajes en Chat (`styles.css`, `Chat.svelte`):**
+  - Eliminado el doble contenedor con scroll mediante `overflow: hidden` en `.page-content.chat-content`.
+  - Solucionado el colapso y aplastamiento de mensajes en contenedores flex con `flex-shrink: 0` y `min-height: 0` en `.app-main` y `.chat-scroll`.
+  - Sustituido `overflow: hidden` por `clip-path: inset(0 round var(--radius-md))` en `.workspace-chat` para evitar parpadeos y repaints en blanco bajo WebKitGTK.
+  - Anti-rebote en auto-scroll con flag `_programmaticScroll` para que el movimiento programático hacia abajo no desactive erróneamente el anclaje (`stickToBottom`).
 
 Tray enriquecido, autostart, terminal multiplataforma con xterm, refresco reactivo de workspace, detección inteligente de aplicaciones y rediseño de atajos estándar.
 

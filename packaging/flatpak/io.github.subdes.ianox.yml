@@ -17,11 +17,8 @@
 
 app-id: io.github.subdes.ianox
 runtime: org.gnome.Platform
-runtime-version: '50'
+runtime-version: '51'
 sdk: org.gnome.Sdk
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.rust-stable
-  - org.freedesktop.Sdk.Extension.node22
 command: ianox
 
 finish-args:
@@ -33,20 +30,11 @@ finish-args:
   # Projects live anywhere in the home directory.
   - --filesystem=home
 
-build-options:
-  append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/node22/bin
-  build-args:
-    - --share=network
-  env:
-    CARGO_HOME: /run/build/ianox/cargo
-
 modules:
   - name: ianox
     buildsystem: simple
     build-commands:
-      - npm ci
-      # `tauri build` (not plain `cargo build`) embeds the interface into the binary.
-      - npx tauri build --no-bundle
+      - if [ ! -f src-tauri/target/release/ianox ]; then npm ci && npx tauri build --no-bundle; fi
       - install -Dm755 src-tauri/target/release/ianox /app/bin/ianox
       - install -Dm644 packaging/io.github.subdes.ianox.desktop /app/share/applications/io.github.subdes.ianox.desktop
       - install -Dm644 packaging/io.github.subdes.ianox.metainfo.xml /app/share/metainfo/io.github.subdes.ianox.metainfo.xml
@@ -54,7 +42,7 @@ modules:
       - sed -i 's|<launchable type="desktop-id">ianox.desktop|<launchable type="desktop-id">io.github.subdes.ianox.desktop|; s|<icon type="stock">ianox<|<icon type="stock">io.github.subdes.ianox<|' /app/share/metainfo/io.github.subdes.ianox.metainfo.xml
       - install -Dm644 src-tauri/icons/128x128.png /app/share/icons/hicolor/128x128/apps/io.github.subdes.ianox.png
       - install -Dm644 src-tauri/icons/128x128@2x.png /app/share/icons/hicolor/256x256/apps/io.github.subdes.ianox.png
-      - install -Dm644 src-tauri/icons/source.png /app/share/icons/hicolor/512x512/apps/io.github.subdes.ianox.png
+      - install -Dm644 src-tauri/icons/512x512.png /app/share/icons/hicolor/512x512/apps/io.github.subdes.ianox.png
       - install -Dm644 branding/ianox-icon.svg /app/share/icons/hicolor/scalable/apps/io.github.subdes.ianox.svg
       - install -Dm644 packaging/man/ianox.1 /app/share/man/man1/ianox.1
       - install -Dm644 LICENSE /app/share/licenses/io.github.subdes.ianox/LICENSE

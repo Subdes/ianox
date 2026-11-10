@@ -4,6 +4,8 @@
 //! In a VM ianox switches WebKit to its software paths before the web view exists.
 //! `IANOX_SAFE_RENDERING=1` forces that on any machine; `=0` turns it off even in a VM.
 
+#![cfg_attr(not(target_os = "linux"), allow(dead_code, unused_variables))]
+
 /// Vendor and product names reported by the firmware of the usual hypervisors.
 const HYPERVISOR_NAMES: &[&str] = &[
     "qemu", "kvm", "vmware", "virtualbox", "innotek", "xen", "parallels", "bochs", "bhyve",

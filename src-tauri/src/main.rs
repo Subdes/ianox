@@ -1,3 +1,6 @@
+// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 //! ianox — AI gateway, model manager and coding agent
 //!
 //! Fusiona lo mejor de:
@@ -160,8 +163,17 @@ pub fn run() {
                 }
             });
 
-            // Show the window when ready
-            window.show()?;
+            // Show the window when ready — unless launched with --minimized and the
+            // tray is available (i.e. autostart from the desktop file). Without a tray
+            // the window must always appear or the app becomes unrecoverable.
+            let start_hidden = std::env::args()
+                .skip(1)
+                .any(|a| a == "--minimized" || a == "--hidden");
+            if start_hidden && crate::tray::available() {
+                let _ = window.hide();
+            } else {
+                window.show()?;
+            }
             crate::tray::update_show_status(app.handle());
 
             Ok(())

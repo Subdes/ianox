@@ -469,7 +469,7 @@ pub struct RateLimitInput {
     pub tokens_per_minute: u32,
 }
 
-// ── Rutas (9router-style) ──
+// ── Rutas (gateway router) ──
 
 #[tauri::command]
 pub async fn get_routes(state: State<'_, AppState>) -> Result<Vec<RouteInfo>, String> {
@@ -1658,7 +1658,7 @@ fn icon_from_value(dirs: &[std::path::PathBuf], value: &str) -> Option<String> {
     if path.is_absolute() {
         return path.is_file().then(|| icon_data_url(path)).flatten();
     }
-    // Ojo: muchos nombres de icono llevan puntos ("ai.opencode", "org.gnome.Nautilus").
+    // Ojo: muchos nombres de icono llevan puntos ("com.example.app", "org.gnome.Nautilus").
     // Only treated as a file if the extension is an image one.
     let is_file = path
         .extension()

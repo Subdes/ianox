@@ -98,16 +98,16 @@
     { method: "GET", path: "/api/tags", desc: "List models (Ollama)" },
     { method: "POST", path: "/api/chat", desc: "Chat (Ollama)" },
     { method: "POST", path: "/api/generate", desc: "Generate (Ollama)" },
-    { method: "GET", path: "/dashboard", desc: "9router-style web dashboard" },
+    { method: "GET", path: "/dashboard", desc: "Web dashboard" },
   ];
 
   const methodColors: Record<string, string> = { GET: "var(--success)", POST: "var(--accent-primary)" };
 
   const references = [
     {
-      name: "9router",
+      name: "Gateway",
       desc: "AI router with fallback, key management, web dashboard",
-      features: ["Fallback chains", "40+ providers", "Dashboard /dashboard", "OpenAI-compatible proxy"],
+      features: ["Fallback chains", "Multiple providers", "Dashboard /dashboard", "OpenAI-compatible proxy"],
     },
     {
       name: "Ollama",
@@ -115,14 +115,14 @@
       features: ["Local models", "Pull/Delete", "REST API", "Full privacy"],
     },
     {
-      name: "DeepSeek Harness",
-      desc: "Plugin architecture, embedded server, web UI on :3080",
-      features: ["Plugin system (Cordis)", "Built-in server", "Web UI", "TypeScript/React"],
+      name: "Server",
+      desc: "Embedded HTTP server with live status and CORS",
+      features: ["Axum HTTP gateway", "Multi-protocol", "SSE streaming", "Zero latency"],
     },
     {
-      name: "OpenCode",
-      desc: "Coding agent, TUI + Desktop, MCP, LSP, subagents",
-      features: ["Plan/Build modes", "MCP servers", "AGENTS.md", "Permissions/policies"],
+      name: "Agent",
+      desc: "Coding agent with terminal, file review, tools and MCP",
+      features: ["Plan/Build modes", "MCP servers", "Tools execution", "Workspace isolation"],
     },
   ];
 

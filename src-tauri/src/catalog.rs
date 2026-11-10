@@ -1,4 +1,4 @@
-//! Model catalog (names and limits) from models.dev, the same source OpenCode uses.
+//! Model catalog (names and limits) from models.dev.
 //!
 //! The provider config only stores raw ids such as `deepseek-flash`; the catalog
 //! maps them to the names users see (`DeepSeek V4.1 Flash 1017`). It is cached on

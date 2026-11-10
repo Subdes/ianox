@@ -20,7 +20,7 @@
     { method: "GET", path: "/api/tags", desc: "Lista modelos (Ollama)" },
     { method: "POST", path: "/api/chat", desc: "Chat (Ollama)" },
     { method: "POST", path: "/api/generate", desc: "Generate (Ollama)" },
-    { method: "GET", path: "/dashboard", desc: "Panel web (9router)" },
+    { method: "GET", path: "/dashboard", desc: "Panel web" },
   ];
 
   const methodColors: Record<string, string> = {

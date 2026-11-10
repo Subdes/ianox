@@ -17,6 +17,8 @@ control.token
 # Local tooling notes (they hold machine-specific paths)
 AGENTS.md
 .claude/
+AGENTS.md
+CONCEPTO.md
 .opencode/
 .ianox/
 

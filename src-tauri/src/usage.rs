@@ -1,4 +1,4 @@
-//! Usage log and aggregation for the dashboard (9router style).
+//! Usage log and aggregation for the dashboard (gateway router).
 
 use chrono::{DateTime, Datelike, Duration as ChronoDuration, Local, TimeZone};
 use serde::{Deserialize, Serialize};

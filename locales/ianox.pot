@@ -31,7 +31,7 @@ msgstr ""
 msgid "40+ providers"
 msgstr ""
 
-msgid "9router-style web dashboard"
+msgid "Web dashboard"
 msgstr ""
 
 msgid "A browser interface for the gateway"
@@ -373,7 +373,7 @@ msgstr ""
 msgid "Define routing patterns"
 msgstr ""
 
-msgid "Define which provider serves each model. 9router-style patterns, priorities and fallback."
+msgid "Define which provider serves each model. Routing patterns, priorities and fallback."
 msgstr ""
 
 msgid "Delete"
@@ -649,7 +649,7 @@ msgstr ""
 msgid "Light gray"
 msgstr ""
 
-msgid "Like OpenCode: build with full access and plan read-only. Each agent sets its model and system prompt."
+msgid "Build with full access and plan read-only. Each agent sets its model and system prompt."
 msgstr ""
 
 msgid "Linux packaging"
@@ -1240,7 +1240,7 @@ msgstr ""
 msgid "Starts the HTTP server when the app opens"
 msgstr ""
 
-msgid "Stdio connections, the same format as OpenCode. Add servers and test their tools."
+msgid "Stdio connections, Add servers and test their tools."
 msgstr ""
 
 msgid "Stop"

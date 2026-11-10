@@ -2,7 +2,7 @@
 //!
 //! El backend es el único que ve el contenido anterior y el posterior, así que
 //! calcula aquí el diff y la interfaz solo lo pinta (verde/rojo, con números de
-//! línea), como hace OpenCode.
+//! línea).
 
 use serde::Serialize;
 

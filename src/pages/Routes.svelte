@@ -1,6 +1,6 @@
 <script lang="ts">
   import { t } from "../i18n";
-  // ianox — routes page (9router style)
+  // ianox — routes page
   import { onMount } from "svelte";
   import { invoke } from "@tauri-apps/api/core";
   import { listen, type UnlistenFn } from "@tauri-apps/api/event";
@@ -117,7 +117,7 @@
     {#if !compact}
       <PageHeader
         title={t("Routing rules")}
-        subtitle={t("Define which provider serves each model. 9router-style patterns, priorities and fallback.")}
+        subtitle={t("Define which provider serves each model. Routing patterns, priorities and fallback.")}
       >
         <button class="btn btn-primary" onclick={openAdd}>
           <Icon name="plus" size={15} />

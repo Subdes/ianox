@@ -1,6 +1,6 @@
 <script lang="ts">
   import { t } from "../i18n";
-  // ianox — agents (OpenCode style: build / plan)
+  // ianox — agents (build / plan)
   import { invoke } from "@tauri-apps/api/core";
   import type { AgentConfig, AgentInput, AgentMode, ModelInfo } from "../types";
   import Modal from "../components/Modal.svelte";
@@ -93,7 +93,7 @@
   <div class="ui-page">
     <PageHeader
       title={t("Agents")}
-      subtitle={t("Like OpenCode: build with full access and plan read-only. Each agent sets its model and system prompt.")}
+      subtitle={t("Build with full access and plan read-only. Each agent sets its model and system prompt.")}
     >
       <button class="btn btn-primary" onclick={openNew}>
         <Icon name="plus" size={15} />

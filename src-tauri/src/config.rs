@@ -99,7 +99,7 @@ pub struct RouteConfig {
     pub weight: u8,
 }
 
-/// Agente configurable (estilo OpenCode: build / plan).
+/// Agente configurable (build / plan).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AgentConfig {
     pub id: String,
@@ -141,7 +141,7 @@ pub struct ProjectConfig {
     pub icon: Option<String>,
 }
 
-/// MCP server connected over stdio (same schema OpenCode uses).
+/// MCP server connected over stdio (standard stdio schema).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct McpServerConfig {
     pub id: String,

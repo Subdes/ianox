@@ -163,7 +163,7 @@
     {#if !compact}
       <PageHeader
         title={t("MCP servers")}
-        subtitle={t("Stdio connections, the same format as OpenCode. Add servers and test their tools.")}
+        subtitle={t("Stdio connections for external tools and agents. Add servers and test their tools.")}
       >
         <button class="btn btn-primary" onclick={openNew}>
           <Icon name="plus" size={15} />{t("Add server")}</button>

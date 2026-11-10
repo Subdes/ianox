@@ -160,6 +160,6 @@ ianox.
 ## Trademarks and affiliation
 
 ianox is an independent project. It is not affiliated with, endorsed by or sponsored by
-Anthropic, OpenAI, DeepSeek, Ollama, OpenCode, 9router, Google or any other provider or
+Anthropic, OpenAI, DeepSeek, Ollama, Google or any other provider or
 project named in its documentation or interface. Those names are used only to say which
 services it can talk to, and belong to their owners.

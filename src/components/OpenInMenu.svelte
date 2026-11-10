@@ -1,6 +1,6 @@
 <script lang="ts">
   import { t } from "../i18n";
-  // ianox — t("Open in") (split button) para archivos, estilo OpenCode
+  // ianox — t("Open in") (split button) para archivos
   import { onMount } from "svelte";
   import { invoke } from "@tauri-apps/api/core";
   import Icon from "./Icon.svelte";

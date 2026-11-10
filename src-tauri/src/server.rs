@@ -1,4 +1,4 @@
-//! Servidor HTTP embebido (estilo 9router / DeepSeek Harness)
+//! Servidor HTTP embebido 
 //!
 //! Expone API compatible con OpenAI/Anthropic/Ollama en localhost:20128
 //! Gestiona rutas, proveedores, fallbacks, streaming SSE
@@ -339,7 +339,7 @@ async fn anthropic_messages(
     }
 }
 
-// ── Provider resolution by routes (9router style) ──
+// ── Provider resolution by routes (gateway router) ──
 
 async fn resolve_provider(state: &ServerState, model: &str) -> Option<ProviderConfig> {
     let routes = state.routes.read().await;

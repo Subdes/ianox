@@ -26,7 +26,7 @@
   }
 
   /**
-   * Like OpenCode: text stays as it is, and every run of thoughts and tool calls
+   * Text stays as it is, and every run of thoughts and tool calls
    * between two texts folds into a single group.
    */
   const blocks = $derived.by(() => {

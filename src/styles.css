@@ -971,7 +971,7 @@ body,
 .md hr { border: none; border-top: 1px solid var(--border-primary); margin: 14px 0; }
 
 /* ─────────────────────────────────────────────────────────────
-   Sistema visual — tokens inspirados en OpenCode (dark)
+   Sistema visual — tokens inspirados en ianox (dark)
    Grises neutros, bordes alpha, tipografía 13 px/440, radios 8–12
    ───────────────────────────────────────────────────────────── */
 :root,
@@ -1479,7 +1479,7 @@ input[type="checkbox"] { accent-color: var(--accent-primary); }
 .params-row label { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); }
 .model-pill { max-width: 220px; text-overflow: ellipsis; }
 
-/* Unified composer (Ollama/OpenCode/DSH pattern) */
+/* Unified composer  */
 .composer-box {
   position: relative;
   display: flex;
@@ -1798,7 +1798,7 @@ input[type="checkbox"] { accent-color: var(--accent-primary); }
 .file-tree-shell { display: flex; flex-direction: column; height: 100%; min-height: 0; }
 .file-tree-shell .file-tree { flex: 1; overflow: auto; }
 
-/* Sidebar interna del panel de archivos (OpenCode) */
+/* Sidebar interna del panel de archivos  */
 .file-inner-sidebar {
   width: 260px;
   flex-shrink: 0;
@@ -1833,7 +1833,7 @@ input[type="checkbox"] { accent-color: var(--accent-primary); }
 .tool-row svg { color: var(--text-secondary); flex-shrink: 0; }
 .tool-row:hover svg { color: var(--accent-primary); }
 
-/* Session header (OpenCode SessionReviewToggle) */
+/* Session header  */
 .session-header {
   display: flex;
   align-items: center;
@@ -2442,7 +2442,7 @@ input[type="checkbox"] { accent-color: var(--accent-primary); }
 }
 .menu-item .app-menu-label { flex: 1; }
 
-/* ── New tab, OpenCode style ── */
+/* ── New tab ── */
 .launcher-column {
   width: 100%;
   max-width: 560px;
@@ -2665,7 +2665,7 @@ input[type="checkbox"] { accent-color: var(--accent-primary); }
   padding: 24px;
 }
 
-/* ── Session header (OpenCode style) ── */
+/* ── Session header  ── */
 .session-header-mark { display: inline-flex; flex-shrink: 0; }
 .session-header-project {
   font-size: 12px;
@@ -3226,7 +3226,7 @@ html[data-theme="light"] .dl.ctx { color: var(--text-secondary); }
   to { background-position: -220% 0; }
 }
 
-/* Thinking, OpenCode style: a muted text line, no box or border */
+/* Thinking: a muted text line, no box or border */
 .thinking {
   margin: 0 0 6px;
   border: none;
@@ -3405,7 +3405,7 @@ html[data-theme="light"] .dl.ctx { color: var(--text-secondary); }
   color: var(--text-muted);
 }
 
-/* Chat typography: spacing between blocks, like OpenCode */
+/* Chat typography: spacing between blocks */
 
 
 

@@ -4,10 +4,10 @@
 //! ianox — AI gateway, model manager and coding agent
 //!
 //! Fusiona lo mejor de:
-//! - 9router: AI router with fallback and key management
+//! - Gateway: AI router with fallback and key management
 //! - Ollama: gestor de modelos locales
-//! - DeepSeek Harness: servidor embebido con UI propia
-//! - OpenCode: coding agent with terminal and tools
+//! - Server: servidor embebido con UI propia
+//! - Agent: coding agent with terminal and tools
 
 mod agent;
 mod assistant;

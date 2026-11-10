@@ -95,12 +95,15 @@ fn apply_linux_window_hints<R: Runtime>(window: &WebviewWindow<R>) {
     use gtk::prelude::*;
     if let Ok(gtk_win) = window.gtk_window() {
         // En gestores tiling (KWin, Pop Shell, i3/sway, GNOME Forge):
-        // Utility o Dialog previene que el compositor trate la ventana como candidata a mosaico.
+        // Utility previene que el compositor trate la ventana como candidata a mosaico.
         gtk_win.set_type_hint(gtk::gdk::WindowTypeHint::Utility);
         gtk_win.set_role("ianox-assistant");
         gtk_win.set_keep_above(true);
         gtk_win.set_skip_taskbar_hint(true);
         gtk_win.set_skip_pager_hint(true);
+        // Evita que KWin/Mutter centren la ventana automáticamente al mostrarla
+        gtk_win.set_position(gtk::WindowPosition::None);
+        gtk_win.set_gravity(gtk::gdk::Gravity::NorthEast);
     }
 }
 
@@ -116,9 +119,38 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
 
             let _ = window.set_size(LogicalSize::new(width, h));
             let _ = window.set_position(LogicalPosition::new(pos_x, pos_y));
+
+            // Forzar en GTK directamente antes y después de show
+            if let Ok(gtk_win) = window.gtk_window() {
+                use gtk::prelude::*;
+                gtk_win.move_(pos_x as i32, pos_y as i32);
+                gtk_win.resize(width as i32, h as i32);
+            }
+
             let _ = window.show();
             let _ = window.unminimize();
             let _ = window.set_focus();
+
+            // Re-aplicar posición tras mapeo para sobreescribir cualquier heurística de centrado de KWin/Mutter
+            if let Ok(gtk_win) = window.gtk_window() {
+                use gtk::prelude::*;
+                gtk_win.move_(pos_x as i32, pos_y as i32);
+            }
+            let _ = window.set_position(LogicalPosition::new(pos_x, pos_y));
+
+            // En Wayland/KWin con tiling, KWin puede recentrar durante el primer frame de animación;
+            // forzamos la coordenada lateral 60ms después para fijar el widget en el borde derecho.
+            let w_clone = window.clone();
+            tauri::async_runtime::spawn(async move {
+                tokio::time::sleep(std::time::Duration::from_millis(60)).await;
+                let _ = w_clone.set_position(LogicalPosition::new(pos_x, pos_y));
+                #[cfg(target_os = "linux")]
+                if let Ok(gtk_win) = w_clone.gtk_window() {
+                    use gtk::prelude::*;
+                    gtk_win.move_(pos_x as i32, pos_y as i32);
+                }
+            });
+
             let _ = window.emit("assistant://shown", ());
             return;
         }

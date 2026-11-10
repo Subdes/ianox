@@ -90,10 +90,25 @@ fn get_workarea_linux<R: Runtime>(window: &WebviewWindow<R>) -> Option<(f64, f64
     ))
 }
 
+#[cfg(target_os = "linux")]
+fn apply_linux_window_hints<R: Runtime>(window: &WebviewWindow<R>) {
+    use gtk::prelude::*;
+    if let Ok(gtk_win) = window.gtk_window() {
+        // En gestores tiling (KWin, Pop Shell, i3/sway, GNOME Forge):
+        // Utility o Dialog previene que el compositor trate la ventana como candidata a mosaico.
+        gtk_win.set_type_hint(gtk::gdk::WindowTypeHint::Utility);
+        gtk_win.set_role("ianox-assistant");
+        gtk_win.set_keep_above(true);
+        gtk_win.set_skip_taskbar_hint(true);
+        gtk_win.set_skip_pager_hint(true);
+    }
+}
+
 /// Posiciona y muestra la ventana del asistente ajustada al área disponible del SO.
 fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
     #[cfg(target_os = "linux")]
     {
+        apply_linux_window_hints(window);
         if let Some((x, y, w, h)) = get_workarea_linux(window) {
             let width = DEFAULT_WIDTH.min(w);
             let pos_x = (x + w) - width - MARGIN_RIGHT;
@@ -131,6 +146,14 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
     let _ = window.show();
     let _ = window.set_focus();
     let _ = window.emit("assistant://shown", ());
+}
+
+/// Inicializa los hints nativos de la ventana del asistente en el arranque.
+pub fn init<R: Runtime>(app: &AppHandle<R>) {
+    if let Some(window) = app.get_webview_window(ASSISTANT_WINDOW) {
+        #[cfg(target_os = "linux")]
+        apply_linux_window_hints(&window);
+    }
 }
 
 /// Alterna la visibilidad del asistente flotante.

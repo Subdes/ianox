@@ -702,6 +702,11 @@
         persistSession();
         loadUsage();
         void maybeGenerateTitle();
+        // Notificar al sistema sólo si la ventana no está a foco
+        invoke("notify_if_unfocused", {
+          title: "ianox",
+          body: t("Response completed"),
+        }).catch(() => {});
         // Pick up a message the user wrote while this answer was being generated.
         void sendNextQueued();
       })

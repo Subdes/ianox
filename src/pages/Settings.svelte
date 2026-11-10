@@ -30,6 +30,64 @@
     auth_token: null,
   });
 
+  interface UpdateInfo {
+    current_version: string;
+    latest_version: string;
+    has_update: boolean;
+    release_notes: string;
+    release_url: string;
+    asset_name: string | null;
+    asset_url: string | null;
+    asset_size: number;
+  }
+
+  let checkingUpdate = $state(false);
+  let updateInfo = $state<UpdateInfo | null>(null);
+  let updateError = $state<string | null>(null);
+  let downloading = $state(false);
+  let downloadPercent = $state(0);
+  let downloadStatus = $state<string | null>(null);
+
+  async function handleCheckUpdate(): Promise<void> {
+    checkingUpdate = true;
+    updateError = null;
+    try {
+      const res = await invoke<UpdateInfo>("check_for_updates");
+      updateInfo = res;
+    } catch (err) {
+      updateError = String(err);
+    } finally {
+      checkingUpdate = false;
+    }
+  }
+
+  async function handleInstallUpdate(): Promise<void> {
+    if (!updateInfo?.asset_url || !updateInfo?.asset_name) return;
+    downloading = true;
+    downloadPercent = 0;
+    downloadStatus = t("Downloading update...");
+
+    const unlistenProgress = await listen<{ downloaded: number; total: number; percent: number }>(
+      "update://progress",
+      (e) => {
+        downloadPercent = Math.round(e.payload.percent);
+      }
+    );
+
+    try {
+      const targetPath = await invoke<string>("download_and_install_update", {
+        assetUrl: updateInfo.asset_url,
+        assetName: updateInfo.asset_name,
+      });
+      downloadStatus = `${t("Package downloaded and installer started:")} ${targetPath}`;
+    } catch (err) {
+      downloadStatus = `${t("Error during update:")} ${err}`;
+    } finally {
+      downloading = false;
+      unlistenProgress();
+    }
+  }
+
   let unlisten: UnlistenFn | null = null;
 
   $effect(() => {
@@ -161,13 +219,94 @@
           {#if activeTab === "general"}
             <div style="display:flex;flex-direction:column;gap:26px;max-width:760px">
               <section>
-                <h3 class="section-title">{t("About ianox")}</h3>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                  <h3 class="section-title" style="margin:0">{t("About ianox")}</h3>
+                  <button
+                    class="btn btn-secondary btn-sm"
+                    disabled={checkingUpdate || downloading}
+                    onclick={handleCheckUpdate}
+                  >
+                    {#if checkingUpdate}
+                      <span class="spin"><Icon name="loader" size={13} /></span>
+                      <span>{t("Checking...")}</span>
+                    {:else}
+                      <Icon name="refresh-cw" size={13} />
+                      <span>{t("Check for updates")}</span>
+                    {/if}
+                  </button>
+                </div>
+
                 <dl class="kv">
-                  <dt>{t("Version")}</dt><dd class="mono">1.0.0</dd>
+                  <dt>{t("Version")}</dt><dd class="mono">{updateInfo?.current_version ?? "0.0.5"}</dd>
                   <dt>{t("Runtime")}</dt><dd>Tauri 2 + Rust + Svelte 5</dd>
                   <dt>{t("Framework")}</dt><dd>Vite + TypeScript</dd>
                   <dt>{t("Architecture")}</dt><dd>{t("Cross-platform (Linux/macOS/Windows)")}</dd>
                 </dl>
+
+                {#if updateInfo}
+                  <div style="margin-top:14px;padding:12px;border-radius:var(--radius-md);background:var(--bg-secondary);border:1px solid var(--border-primary)">
+                    {#if updateInfo.has_update}
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                        <div>
+                          <div style="font-weight:600;font-size:13px;color:var(--accent-primary)">
+                            ✨ {t("New version available:")} v{updateInfo.latest_version}
+                          </div>
+                          {#if updateInfo.asset_name}
+                            <div style="font-size:11px;color:var(--text-muted);margin-top:2px">
+                              {t("Package:")} <code>{updateInfo.asset_name}</code> ({(updateInfo.asset_size / (1024 * 1024)).toFixed(1)} MB)
+                            </div>
+                          {/if}
+                        </div>
+                        {#if updateInfo.asset_url}
+                          <button
+                            class="btn btn-primary btn-sm"
+                            disabled={downloading}
+                            onclick={handleInstallUpdate}
+                          >
+                            <Icon name="download" size={13} />
+                            <span>{t("Download and Install")}</span>
+                          </button>
+                        {:else}
+                          <a
+                            href={updateInfo.release_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            class="btn btn-secondary btn-sm"
+                          >
+                            <Icon name="external-link" size={13} />
+                            <span>{t("Open Release")}</span>
+                          </a>
+                        {/if}
+                      </div>
+
+                      {#if downloading}
+                        <div style="margin-top:10px">
+                          <div style="height:6px;width:100%;background:var(--bg-tertiary);border-radius:3px;overflow:hidden">
+                            <div style="height:100%;background:var(--accent-primary);width:{downloadPercent}%;transition:width 0.2s"></div>
+                          </div>
+                          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;text-align:right">
+                            {downloadPercent}%
+                          </div>
+                        </div>
+                      {/if}
+
+                      {#if downloadStatus}
+                        <div style="font-size:11px;color:var(--text-secondary);margin-top:6px">
+                          {downloadStatus}
+                        </div>
+                      {/if}
+                    {:else}
+                      <div style="font-size:12px;color:var(--success);display:flex;align-items:center;gap:6px">
+                        <Icon name="check" size={14} />
+                        <span>{t("ianox is up to date")} (v{updateInfo.current_version})</span>
+                      </div>
+                    {/if}
+                  </div>
+                {:else if updateError}
+                  <div style="margin-top:12px;font-size:12px;color:var(--danger)">
+                    ⚠ {t("Update check error:")} {updateError}
+                  </div>
+                {/if}
               </section>
 
               <section>

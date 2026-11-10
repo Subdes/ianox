@@ -217,6 +217,10 @@
         currentRequestId = null;
         cleanupListeners();
         query = "";
+        invoke("notify_if_unfocused", {
+          title: "ianox Assistant",
+          body: t("Response completed"),
+        }).catch(() => {});
       }));
       add(await listen<string>(`chat://error/${requestId}`, (event) => {
         responseText = `${t("Error")}: ${event.payload}`;

@@ -30,6 +30,8 @@ mod terminal;
 mod tools;
 mod usage;
 mod autostart;
+mod notify;
+mod updates;
 mod tray;
 mod window;
 
@@ -131,6 +133,9 @@ pub fn run() {
             assistant::resize_assistant,
             autostart::get_autostart_status,
             autostart::set_autostart,
+            notify::notify_if_unfocused,
+            updates::check_for_updates,
+            updates::download_and_install_update,
         ])
         .setup(|app| {
             crate::catalog::init();
@@ -153,6 +158,7 @@ pub fn run() {
             if let Err(e) = assistant::setup_global_shortcut(app.handle()) {
                 eprintln!("[ianox] global shortcut setup error: {e}");
             }
+            assistant::init(app.handle());
 
             // Load config and auto-start the server if configured
             let app_state = app.state::<crate::config::AppState>().inner().clone();

@@ -8,6 +8,29 @@ project follows [Semantic Versioning](https://semver.org/). Versions below `0.1.
 
 ## [Unreleased]
 
+## [0.0.5] - 2026-11-10
+
+Notificaciones del sistema cuando la ventana no está en foco y buscador de actualizaciones directas desde GitHub Releases con descarga e instalación por plataforma.
+
+### Added
+
+- **Notificaciones del sistema inteligentes (`notify.rs`, `notify_if_unfocused`):**
+  - Comando Tauri que verifica el estado real de la ventana principal (`is_focused()`, `is_visible()`, `is_minimized()`).
+  - Si la ventana está en primer plano y en foco, no interrumpe al usuario.
+  - Si la ventana está oculta, minimizada en la bandeja o en segundo plano, lanza una notificación nativa del sistema (Linux `notify-send`, macOS `osascript`, Windows PowerShell notification).
+  - Integrado al finalizar respuestas de streaming tanto en la vista de Chat principal como en el Asistente Flotante.
+- **Buscador y descargador de actualizaciones automáticas (`updates.rs`):**
+  - Comprobador nativo que consulta `https://api.github.com/repos/Subdes/ianox/releases/latest`.
+  - Detección inteligente del sistema operativo y entorno de ejecución del usuario (Flatpak, AppImage, Debian/Ubuntu `.deb`, Fedora/RHEL `.rpm`, Windows `.msi` o macOS `.dmg`).
+  - Descarga del paquete adecuado por streaming con eventos en vivo de porcentaje (`update://progress`).
+  - Apertura/ejecución del instalador al finalizar la descarga.
+  - Sección visual en `Ajustes > General` con botón "Buscar actualizaciones", barra de progreso y estado.
+
+### Fixed
+
+- **Asistente Flotante en gestores de ventanas en mosaico / Tiling (`assistant.rs`, `tauri.conf.json`):**
+  - Ventana configurada con tipo `WindowTypeHint::Utility`, rol `"ianox-assistant"`, `keep_above(true)` y deshabilitado de `resizable` para evitar que compositores como KWin Tiling, Pop Shell, PaperWM o Forge la capturen y la fuercen a pantalla completa o dentro del mosaico. Mantiene su geometría y anclaje lateral derecho como widget flotante omnipresente.
+
 ## [0.0.4] - 2026-11-10
 
 Corrección de inicio minimizado en bandeja, asistente flotante con streaming y selector de proveedor, correcciones de scroll y layouts flex en chat, y scripts multiplataforma de empaquetado (.msi, .dmg, .flatpak).

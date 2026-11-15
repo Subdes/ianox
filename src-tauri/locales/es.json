@@ -516,5 +516,8 @@
   "{n} tools": "{n} herramientas",
   "{providers} providers, {routes} routes": "{providers} proveedores, {routes} rutas",
   "{used} of {limit} tokens of context ({percent}%) · {n} requests": "{used} de {limit} tokens de contexto ({percent} %) · {n} peticiones",
-  "{used} tokens · {n} requests": "{used} tokens · {n} peticiones"
+  "{used} tokens · {n} requests": "{used} tokens · {n} peticiones",
+  "Voice input": "Entrada de voz",
+  "Listening... click to stop": "Escuchando... clic para detener",
+  "Speech recognition is not supported in this environment": "El reconocimiento de voz no está soportado en este entorno"
 }

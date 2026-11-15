@@ -177,6 +177,65 @@
     inputEl?.focus();
   }
 
+  let listening = $state(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let recognition: any = null;
+
+  function toggleSpeechInput(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const win = window as any;
+    const SpeechRec = win.SpeechRecognition || win.webkitSpeechRecognition;
+    if (!SpeechRec) {
+      alert(t("Speech recognition is not supported in this environment"));
+      return;
+    }
+
+    if (listening) {
+      recognition?.stop();
+      listening = false;
+      return;
+    }
+
+    try {
+      recognition = new SpeechRec();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = app.language === "es" ? "es-ES" : "en-US";
+
+      let baseText = query;
+      if (baseText && !baseText.endsWith(" ")) {
+        baseText += " ";
+      }
+
+      recognition.onstart = () => {
+        listening = true;
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      recognition.onresult = (event: any) => {
+        let transcript = "";
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          transcript += event.results[i][0].transcript;
+        }
+        if (transcript) {
+          query = baseText + transcript;
+        }
+      };
+
+      recognition.onerror = () => {
+        listening = false;
+      };
+
+      recognition.onend = () => {
+        listening = false;
+      };
+
+      recognition.start();
+    } catch {
+      listening = false;
+    }
+  }
+
   async function handleCopy(): Promise<void> {
     if (!responseText) return;
     try {
@@ -399,15 +458,23 @@
         >
           <Icon name="stop" size={14} />
         </button>
-      {:else}
+      {:else if query.trim()}
         <button
           type="button"
           class="composer-send"
-          disabled={!query.trim()}
           onclick={handleSend}
           title={t("Send")}
         >
           <Icon name="arrow-up" size={16} />
+        </button>
+      {:else}
+        <button
+          type="button"
+          class={`composer-send mic ${listening ? "listening" : ""}`}
+          onclick={toggleSpeechInput}
+          title={listening ? t("Listening... click to stop") : t("Voice input")}
+        >
+          <Icon name={listening ? "mic-off" : "mic"} size={16} />
         </button>
       {/if}
     </div>

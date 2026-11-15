@@ -212,10 +212,11 @@ pub fn run() {
             });
         }
 
-        // Guardar estado de la ventana
-        if let RunEvent::WindowEvent { event: ref e, .. } = event {
-            if let tauri::WindowEvent::Resized(_) | tauri::WindowEvent::Moved(_) = e {
-                if let Some(_window) = handle.webview_windows().get(MAIN_WINDOW) {
+        // Guardar estado de la ventana y actualizar bandeja
+        if let RunEvent::WindowEvent { label, event: ref e, .. } = event {
+            if label == MAIN_WINDOW {
+                tray::update_show_status(handle);
+                if let tauri::WindowEvent::Resized(_) | tauri::WindowEvent::Moved(_) = e {
                     window::save_state(handle);
                 }
             }

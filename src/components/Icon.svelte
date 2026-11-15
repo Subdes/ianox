@@ -85,6 +85,17 @@
     <polyline points="20 6 9 17 4 12" />
   {:else if name === "arrow-up"}
     <line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" />
+  {:else if name === "mic"}
+    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+    <line x1="12" y1="19" x2="12" y2="23" />
+    <line x1="8" y1="23" x2="16" y2="23" />
+  {:else if name === "mic-off"}
+    <line x1="1" y1="1" x2="23" y2="23" />
+    <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V5a3 3 0 0 0-5.94-.6" />
+    <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23" />
+    <line x1="12" y1="19" x2="12" y2="23" />
+    <line x1="8" y1="23" x2="16" y2="23" />
   {:else if name === "stop"}
     <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none" />
   {:else if name === "terminal"}

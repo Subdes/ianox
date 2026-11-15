@@ -8,6 +8,28 @@ project follows [Semantic Versioning](https://semver.org/). Versions below `0.1.
 
 ## [Unreleased]
 
+## [0.0.7] - 2026-11-15
+
+Entrada de voz dinámica en Chat y Asistente, conversión del Asistente a tipo Dock/Widget con inmunidad ante compositores tiling (KWin/Plasma 6, Pop Shell), sincronización reactiva del menú de bandeja (Mostrar/Ocultar) y exclusión de enlaces simbólicos en Vite.
+
+### Added
+
+- **Entrada de voz dinámica (`Chat.svelte`, `WidgetAssistant.svelte`, `Icon.svelte`):**
+  - Botón interactivo con icono de micrófono (`mic`) cuando el campo de texto está vacío.
+  - Al pulsar, inicia el dictado por voz mediante Web Speech API transcribiendo en tiempo real al área de texto con animación pulsante.
+  - En cuanto el campo contiene texto escrito o dictado, muta automáticamente a la flecha de envío (`arrow-up`).
+- **Asistente Flotante como Widget de Escritorio tipo Dock (`assistant.rs`):**
+  - Superficie configurada con `WindowTypeHint::Dock` y `set_accept_focus(true)`, eximiéndola de algoritmos de mosaico/tiling y de colocación forzada al centro.
+  - Inyección automática de regla KWin persistente en `kwinrulesrc` (`placement=0`, sin bordes, siempre visible arriba) y script de KWin Wayland para anclaje lateral derecho.
+- **Sincronización reactiva del menú contextual de bandeja (`tray.rs`, `main.rs`):**
+  - Comprobación de visibilidad real (`visible && !minimized`), alternando con precisión entre "Mostrar ianox" y "Ocultar ianox".
+  - Recálculo dinámico en cada interacción con la bandeja y en cada evento de ventana.
+
+### Fixed
+
+- **Exclusión de symlinks en Vite watcher (`vite.config.ts`):**
+  - Ignorados `.flatpak-builder` y `dist-packages` en el watcher de Vite para prevenir errores de recursión `ELOOP`.
+
 ## [0.0.6] - 2026-11-10
 
 Corrección de posicionamiento del Asistente Flotante en gestores tiling (anclaje lateral derecho persistente) y unificación dinámica de versiones en todo el pipeline de empaquetado (.deb, .rpm, .AppImage, .flatpak, .msi, .dmg).

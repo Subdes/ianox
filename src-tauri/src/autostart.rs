@@ -60,7 +60,10 @@ pub fn set_autostart(enabled: bool) -> Result<bool, String> {
                  Terminal=false\n\
                  Categories=Development;Utility;\n\
                  StartupNotify=false\n\
-                 X-GNOME-Autostart-enabled=true\n",
+                 StartupWMClass=ianox\n\
+                 X-GNOME-Autostart-enabled=true\n\
+                 X-KDE-autostart-after=panel\n\
+                 X-KDE-autostart-phase=2\n",
                 exec_cmd
             );
 

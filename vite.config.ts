@@ -12,8 +12,12 @@ export default defineConfig({
     port: 5183,
     strictPort: true,
     watch: {
-      // El runtime de Rust no debe disparar recargas del frontend.
-      ignored: ["**/src-tauri/**"],
+      // El runtime de Rust y los artefactos de flatpak no deben vigilarse
+      ignored: [
+        "**/src-tauri/**",
+        "**/.flatpak-builder/**",
+        "**/dist-packages/**",
+      ],
     },
   },
   build: {

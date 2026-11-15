@@ -94,16 +94,143 @@ fn get_workarea_linux<R: Runtime>(window: &WebviewWindow<R>) -> Option<(f64, f64
 fn apply_linux_window_hints<R: Runtime>(window: &WebviewWindow<R>) {
     use gtk::prelude::*;
     if let Ok(gtk_win) = window.gtk_window() {
-        // En gestores tiling (KWin, Pop Shell, i3/sway, GNOME Forge):
-        // Utility previene que el compositor trate la ventana como candidata a mosaico.
-        gtk_win.set_type_hint(gtk::gdk::WindowTypeHint::Utility);
+        // En gestores tiling (KWin, Pop Shell, i3/sway, Bismuth, Polonium):
+        // Dock indica al compositor y al script de tiling que se trata de un panel/widget lateral,
+        // eximiéndolo incondicionalmente del auto-mosaico y del centrado forzado.
+        gtk_win.set_type_hint(gtk::gdk::WindowTypeHint::Dock);
+        gtk_win.set_accept_focus(true);
         gtk_win.set_role("ianox-assistant");
         gtk_win.set_keep_above(true);
         gtk_win.set_skip_taskbar_hint(true);
         gtk_win.set_skip_pager_hint(true);
-        // Evita que KWin/Mutter centren la ventana automáticamente al mostrarla
+        // Desactiva explícitamente cualquier centrado automático del gestor de ventanas
         gtk_win.set_position(gtk::WindowPosition::None);
         gtk_win.set_gravity(gtk::gdk::Gravity::NorthEast);
+    }
+}
+
+#[cfg(target_os = "linux")]
+fn ensure_kwin_rules() {
+    let config_dir = std::env::var("XDG_CONFIG_HOME")
+        .map(std::path::PathBuf::from)
+        .unwrap_or_else(|_| {
+            let home = std::env::var("HOME").unwrap_or_default();
+            std::path::PathBuf::from(home).join(".config")
+        });
+
+    let kwinrules = config_dir.join("kwinrulesrc");
+    if !config_dir.exists() {
+        return;
+    }
+
+    let content = std::fs::read_to_string(&kwinrules).unwrap_or_default();
+    if content.contains("[ianox-assistant]") {
+        return;
+    }
+
+    let rule = r#"
+
+[ianox-assistant]
+Description=ianox Assistant Floating Widget
+above=true
+aboverule=2
+noborder=true
+noborderrule=2
+placement=0
+placementrule=2
+skiptaskbar=true
+skiptaskbarrule=2
+skippager=true
+skippagerrule=2
+title=ianox Assistant
+titlematch=1
+wmclass=ianox
+wmclassmatch=1
+"#;
+
+    if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&kwinrules) {
+        use std::io::Write;
+        let _ = f.write_all(rule.as_bytes());
+        // Pedir a KWin que recargue sus reglas en vivo
+        let qdbus_bin = if std::path::Path::new("/usr/bin/qdbus6").exists() {
+            "qdbus6"
+        } else {
+            "qdbus"
+        };
+        let _ = std::process::Command::new(qdbus_bin)
+            .args(["org.kde.KWin", "/KWin", "reconfigure"])
+            .status();
+    }
+}
+
+#[cfg(target_os = "linux")]
+fn reposition_kwin_wayland(width: f64) {
+    let script_content = format!(
+        r#"
+        (function() {{
+            var clients = workspace.windowList();
+            for (var i = 0; i < clients.length; i++) {{
+                var c = clients[i];
+                var cls = (c.resourceClass || "").toLowerCase();
+                var cap = (c.caption || "").toLowerCase();
+                if ((cls.indexOf("ianox") !== -1 || cap.indexOf("ianox") !== -1) &&
+                    (cap.indexOf("assistant") !== -1 || c.resourceName === "assistant")) {{
+                    var area = workspace.clientArea(KWin.PlacementArea, c);
+                    if (!area) area = workspace.clientArea(KWin.MaximizeArea, c);
+                    try {{ c.tile = null; }} catch(e) {{}}
+                    var targetW = {width};
+                    var targetX = area.x + area.width - targetW;
+                    var targetY = area.y;
+                    var targetH = area.height;
+                    if (c.frameGeometry !== undefined) {{
+                        c.frameGeometry = {{
+                            x: targetX,
+                            y: targetY,
+                            width: targetW,
+                            height: targetH
+                        }};
+                    }} else {{
+                        c.geometry = {{
+                            x: targetX,
+                            y: targetY,
+                            width: targetW,
+                            height: targetH
+                        }};
+                    }}
+                    break;
+                }}
+            }}
+        }})();
+        "#
+    );
+
+    let temp_script = std::env::temp_dir().join("ianox_kwin_reposition.js");
+    if std::fs::write(&temp_script, script_content).is_err() {
+        return;
+    }
+
+    let script_path = temp_script.to_string_lossy().to_string();
+    let qdbus_bin = if std::path::Path::new("/usr/bin/qdbus6").exists() {
+        "qdbus6"
+    } else {
+        "qdbus"
+    };
+
+    let output = std::process::Command::new(qdbus_bin)
+        .args(["org.kde.KWin", "/Scripting", "org.kde.kwin.Scripting.loadScript", &script_path])
+        .output();
+
+    if let Ok(out) = output {
+        let script_id = String::from_utf8_lossy(&out.stdout).trim().to_string();
+        if !script_id.is_empty() {
+            let service_path = format!("/Scripting/Script{script_id}");
+            let _ = std::process::Command::new(qdbus_bin)
+                .args(["org.kde.KWin", &service_path, "org.kde.kwin.Script.run"])
+                .status();
+            let _ = std::process::Command::new(qdbus_bin)
+                .args(["org.kde.KWin", &service_path, "org.kde.kwin.Script.stop"])
+                .status();
+        }
     }
 }
 
@@ -138,16 +265,22 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
             }
             let _ = window.set_position(LogicalPosition::new(pos_x, pos_y));
 
-            // En Wayland/KWin con tiling, KWin puede recentrar durante el primer frame de animación;
-            // forzamos la coordenada lateral 60ms después para fijar el widget en el borde derecho.
+            // En Wayland bajo KDE Plasma 6 (Soplos Linux Tyson), KWin ignora gtk_window_move
+            // y centra las ventanas flotantes; llamamos al scripting de KWin para posicionarla
+            // exactamente en el borde derecho y sacarla del mosaico/tiling.
+            reposition_kwin_wayland(width);
+
             let w_clone = window.clone();
             tauri::async_runtime::spawn(async move {
                 tokio::time::sleep(std::time::Duration::from_millis(60)).await;
                 let _ = w_clone.set_position(LogicalPosition::new(pos_x, pos_y));
                 #[cfg(target_os = "linux")]
-                if let Ok(gtk_win) = w_clone.gtk_window() {
-                    use gtk::prelude::*;
-                    gtk_win.move_(pos_x as i32, pos_y as i32);
+                {
+                    if let Ok(gtk_win) = w_clone.gtk_window() {
+                        use gtk::prelude::*;
+                        gtk_win.move_(pos_x as i32, pos_y as i32);
+                    }
+                    reposition_kwin_wayland(width);
                 }
             });
 
@@ -184,7 +317,10 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
 pub fn init<R: Runtime>(app: &AppHandle<R>) {
     if let Some(window) = app.get_webview_window(ASSISTANT_WINDOW) {
         #[cfg(target_os = "linux")]
-        apply_linux_window_hints(&window);
+        {
+            apply_linux_window_hints(&window);
+            ensure_kwin_rules();
+        }
     }
 }
 

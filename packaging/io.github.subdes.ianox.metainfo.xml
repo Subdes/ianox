@@ -105,6 +105,12 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="0.0.7" date="2026-11-15" type="development">
+      <description>
+        <p>Voice input in chat and assistant, assistant as desktop dock widget for tiling compositors, dynamic tray status synchronization, and build watcher fixes.</p>
+      </description>
+      <url type="details">https://github.com/Subdes/ianox/releases/tag/v0.0.7</url>
+    </release>
     <release version="0.0.6" date="2026-11-10" type="development">
       <description>
         <p>Floating tiling assistant anchor, unfocused system notifications, and GitHub Releases auto-updater.</p>

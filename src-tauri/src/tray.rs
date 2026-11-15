@@ -40,13 +40,15 @@ fn read_server_addr<R: Runtime>(app: &AppHandle<R>) -> Option<String> {
     })
 }
 
-/// Actualiza dinámicamente el texto de mostrar/ocultar ventana según su estado de visibilidad.
+/// Actualiza dinámicamente el texto de mostrar/ocultar ventana según su estado de visibilidad real.
 pub fn update_show_status<R: Runtime>(app: &AppHandle<R>) {
     if let Some(tray_state) = app.try_state::<TrayState<R>>() {
         let lang = configured_language();
         if let Some(window) = app.get_webview_window("main") {
             let visible = window.is_visible().unwrap_or(false);
-            let text = if visible {
+            let minimized = window.is_minimized().unwrap_or(false);
+            let is_shown = visible && !minimized;
+            let text = if is_shown {
                 crate::i18n::t(&lang, "Hide ianox")
             } else {
                 crate::i18n::t(&lang, "Show ianox")
@@ -147,6 +149,7 @@ pub fn init<R: Runtime>(app: AppHandle<R>) -> tauri::Result<()> {
             _ => {}
         })
         .on_tray_icon_event(|tray, event| {
+            update_show_status(tray.app_handle());
             if let tauri::tray::TrayIconEvent::Click { button, .. } = event {
                 if button == tauri::tray::MouseButton::Left {
                     toggle_main_window(tray.app_handle());
@@ -171,12 +174,13 @@ pub fn init<R: Runtime>(app: AppHandle<R>) -> tauri::Result<()> {
 fn toggle_main_window<R: Runtime>(app: &AppHandle<R>) {
     if let Some(window) = app.get_webview_window("main") {
         let visible = window.is_visible().unwrap_or(false);
-        if visible {
+        let minimized = window.is_minimized().unwrap_or(false);
+        if visible && !minimized {
             let _ = window.hide();
         } else {
+            let _ = window.unminimize();
             let _ = window.show();
             let _ = window.set_focus();
-            let _ = window.unminimize();
         }
         update_show_status(app);
     }

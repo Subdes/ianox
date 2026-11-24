@@ -350,6 +350,7 @@
   "Remove from favorites": "Quitar de favoritos",
   "Remove icon": "Quitar icono",
   "Remove image": "Eliminar imagen",
+  "Remove queued message": "Eliminar mensaje pendiente",
   "Remove project": "Quitar proyecto",
   "Remove this project from the sidebar? Files are not deleted from disk.": "¿Quitar este proyecto de la barra lateral? Los archivos no se borran del disco.",
   "Rename conversation": "Renombrar conversación",
@@ -519,5 +520,14 @@
   "{used} tokens · {n} requests": "{used} tokens · {n} peticiones",
   "Voice input": "Entrada de voz",
   "Listening... click to stop": "Escuchando... clic para detener",
-  "Speech recognition is not supported in this environment": "El reconocimiento de voz no está soportado en este entorno"
+  "Speech recognition is not supported in this environment": "El reconocimiento de voz no está soportado en este entorno",
+  "Allow for this conversation": "Permitir en esta conversación",
+  "Ask anything about your computer: files, commands, text or ideas.": "Pregunta lo que sea sobre tu equipo: archivos, comandos, texto o ideas.",
+  "Code assistant": "Asistente de código",
+  "No projects yet": "Sin proyectos todavía",
+  "Open projects": "Abrir proyectos",
+  "Select project": "Seleccionar proyecto",
+  "The agent needs your permission": "El agente necesita tu permiso",
+  "This looks like a private file (keys or credentials).": "Parece un archivo privado (claves o credenciales).",
+  "Work on the selected project: read, edit and run with your permission.": "Trabaja en el proyecto elegido: lee, edita y ejecuta con tu permiso."
 }

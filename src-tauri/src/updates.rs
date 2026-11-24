@@ -50,7 +50,7 @@ pub async fn check_for_updates(app: AppHandle) -> Result<UpdateCheckResult, Stri
         .get("https://api.github.com/repos/Subdes/ianox/releases/latest")
         .send()
         .await
-        .map_err(|e| format!("No se pudo conectar a GitHub Releases: {e}"))?;
+        .map_err(|e| format!("Could not connect to GitHub Releases: {e}"))?;
 
     if !resp.status().is_success() {
         return Err(format!("Respuesta no satisfactoria de GitHub: HTTP {}", resp.status()));
@@ -115,7 +115,7 @@ pub async fn download_and_install_update(
 
     let mut file = tokio::fs::File::create(&target_path)
         .await
-        .map_err(|e| format!("No se pudo crear archivo temporal {}: {e}", target_path.display()))?;
+        .map_err(|e| format!("Could not create temporary file {}: {e}", target_path.display()))?;
 
     let mut stream = resp.bytes_stream();
     let mut downloaded: u64 = 0;

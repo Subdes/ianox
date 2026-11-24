@@ -90,7 +90,7 @@
 
     invoke<ProviderInfo[]>("list_providers")
       .then((data) => (providers = data))
-      .catch((e) => console.error("Error cargando proveedores:", e))
+      .catch((e) => console.error(t("Error loading providers:"), e))
       .finally(() => (loading = false));
 
     listen<ProviderInfo[]>("providers://updated", (e) => (providers = e.payload))
@@ -124,7 +124,7 @@
       resetForm();
       providers = await invoke<ProviderInfo[]>("list_providers");
     } catch (e) {
-      console.error("Error guardando proveedor:", e);
+      console.error(t("Error saving provider:"), e);
       alert(`${t("Error")}: ${e}`);
     }
   }
@@ -150,7 +150,7 @@
     try {
       await invoke("remove_provider", { id });
     } catch (e) {
-      console.error("Error eliminando proveedor:", e);
+      console.error(t("Error deleting provider:"), e);
       alert(`${t("Error")}: ${e}`);
     }
   }

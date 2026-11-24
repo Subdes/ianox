@@ -41,7 +41,7 @@
         routes = routesData;
         providers = providersData.filter((p) => p.enabled);
       })
-      .catch((e) => console.error("Error cargando datos:", e))
+      .catch((e) => console.error(t("Error loading data:"), e))
       .finally(() => (loading = false));
 
     listen<RouteInfo[]>("routes://updated", (e) => (routes = e.payload))
@@ -68,7 +68,7 @@
       editingRoute = null;
       resetForm();
     } catch (e) {
-      console.error("Error guardando ruta:", e);
+      console.error(t("Error saving route:"), e);
       alert(`${t("Error")}: ${e}`);
     }
   }
@@ -84,7 +84,7 @@
     try {
       await invoke("remove_route", { id });
     } catch (e) {
-      console.error("Error eliminando ruta:", e);
+      console.error(t("Error deleting route:"), e);
       alert(`${t("Error")}: ${e}`);
     }
   }
@@ -93,7 +93,7 @@
     try {
       await invoke("toggle_route", { id, enabled });
     } catch (e) {
-      console.error("Error cambiando estado:", e);
+      console.error(t("Error changing status:"), e);
     }
   }
 

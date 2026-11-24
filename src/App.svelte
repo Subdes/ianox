@@ -5,7 +5,7 @@
   import { getCurrentWindow } from "@tauri-apps/api/window";
   import { listen, type UnlistenFn } from "@tauri-apps/api/event";
   import type { Config, ServerStatus } from "./types";
-  import { app, boot, requestQuit, toggleSidebar } from "./app.svelte";
+  import { app, boot, navigate, requestQuit, toggleSidebar } from "./app.svelte";
   import Sidebar from "./components/Sidebar.svelte";
   import Header from "./components/Header.svelte";
   import TitleBar from "./components/TitleBar.svelte";
@@ -77,6 +77,13 @@
     listen("app://quit-requested", () => void requestQuit())
       .then((fn) => (unlistenQuit = fn))
       .catch(() => {});
+    // The assistant's model picker can ask for a page here (e.g. add a provider).
+    let unlistenNav: UnlistenFn | undefined;
+    listen<string>("app://navigate", (event) => {
+      if (event.payload) navigate(event.payload);
+    })
+      .then((fn) => (unlistenNav = fn))
+      .catch(() => {});
     // From now on the backend may hand close requests to the interface.
     invoke("frontend_ready").catch(() => {});
 
@@ -104,6 +111,7 @@
     return () => {
       unlisten?.();
       unlistenQuit?.();
+      unlistenNav?.();
       window.removeEventListener("keydown", onKey);
     };
   });

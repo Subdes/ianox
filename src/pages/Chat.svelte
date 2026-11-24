@@ -135,7 +135,7 @@
       const activeId = config.active_project ?? null;
       activeProject = (config.projects ?? []).find((p) => p.id === activeId) ?? null;
     } catch (e) {
-      console.error("Error cargando proyectos:", e);
+      console.error(t("Error loading projects:"), e);
     }
   }
 
@@ -149,7 +149,7 @@
         models = data;
         if (data.length > 0) selectedModel = selectedModel || data[0].id;
       } catch (e) {
-        console.error("Error cargando modelos:", e);
+        console.error(t("Error loading models:"), e);
       } finally {
         if (!cancelled) loadingModels = false;
       }
@@ -164,7 +164,7 @@
           restoreLast();
         }
       } catch (e) {
-        console.error("Error cargando agentes:", e);
+        console.error(t("Error loading agents:"), e);
       }
       if (!cancelled) {
         await loadProjects();
@@ -594,12 +594,28 @@
 
   /** Sends the first queued message, if the interface is free. */
   async function sendNextQueued(): Promise<void> {
-    if (streaming || compacting) return;
+    if (streaming || compacting || drainingQueue) return;
     const next = queued[0];
     if (!next) return;
+    drainingQueue = true;
     queued = queued.slice(1);
-    await deliver(next.text, next.attachments, next.images);
+    try {
+      await deliver(next.text, next.attachments, next.images);
+    } catch (e) {
+      error = e instanceof Error ? e.message : String(e);
+    } finally {
+      drainingQueue = false;
+    }
   }
+
+  // Whatever closes a turn (done, error, stop), a queued message must never stay stuck.
+  let drainingQueue = $state(false);
+  $effect(() => {
+    if (streaming || compacting || drainingQueue || queued.length === 0) return;
+    untrack(() => {
+      void sendNextQueued();
+    });
+  });
 
   async function deliver(text: string, attach: Attachment[], imgs: ImageAttachment[]): Promise<void> {
     // Close to the model's limit: replace the history with a summary first, so this message fits.
@@ -654,8 +670,6 @@
       cleanupListeners();
       persistSession();
       loadUsage();
-      // A message written while this answer was streaming goes out now.
-      void sendNextQueued();
     };
 
     add(
@@ -707,8 +721,6 @@
           title: "ianox",
           body: t("Response completed"),
         }).catch(() => {});
-        // Pick up a message the user wrote while this answer was being generated.
-        void sendNextQueued();
       })
     );
     add(
@@ -862,6 +874,12 @@
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let recognition: any = null;
 
+  function stopSpeechInput(): void {
+    if (!listening) return;
+    recognition?.stop();
+    listening = false;
+  }
+
   function toggleSpeechInput(): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const win = window as any;
@@ -872,8 +890,7 @@
     }
 
     if (listening) {
-      recognition?.stop();
-      listening = false;
+      stopSpeechInput();
       return;
     }
 
@@ -1556,7 +1573,7 @@
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(String(reader.result));
-      reader.onerror = () => reject(new Error("No se pudo leer la imagen"));
+      reader.onerror = () => reject(new Error(t("Could not read the image")));
       reader.readAsDataURL(blob);
     });
   }
@@ -1565,7 +1582,7 @@
     return new Promise((resolve, reject) => {
       const picture = new Image();
       picture.onload = () => resolve(picture);
-      picture.onerror = () => reject(new Error("No se pudo decodificar la imagen"));
+      picture.onerror = () => reject(new Error(t("Could not decode the image")));
       picture.src = dataUrl;
     });
   }
@@ -1580,7 +1597,7 @@
     canvas.width = width;
     canvas.height = height;
     const context = canvas.getContext("2d");
-    if (!context) throw new Error("No se pudo preparar la imagen");
+    if (!context) throw new Error(t("Could not prepare the image"));
     context.drawImage(picture, 0, 0, width, height);
 
     let mime = "image/png";
@@ -2043,7 +2060,11 @@
             bind:value={input}
             onkeydown={handleKeyDown}
             onpaste={handlePaste}
-            oninput={updateSuggest}
+            onfocus={stopSpeechInput}
+            oninput={() => {
+              stopSpeechInput();
+              updateSuggest();
+            }}
             onclick={updateSuggest}
             onkeyup={(e) => {
               if (!["ArrowUp", "ArrowDown", "Enter", "Tab", "Escape"].includes(e.key)) updateSuggest();

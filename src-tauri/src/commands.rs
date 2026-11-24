@@ -889,6 +889,10 @@ pub async fn chat_stream(
     session_id: Option<String>,
     agent_mode: Option<String>,
     provider_id: Option<String>,
+    // Folder the agent works in: Code mode pins the project picked in the panel.
+    project_path: Option<String>,
+    // The system assistant (Ask) works over the user's home instead of a project.
+    system_scope: Option<bool>,
 ) -> Result<(), String> {
     let config = state.config.read().await.clone();
     let provider = pick_provider(&config, &model, provider_id.as_deref())
@@ -904,11 +908,19 @@ pub async fn chat_stream(
         Some(from_catalog.unwrap_or(16_384))
     });
 
-    let project_path = config
-        .projects
-        .iter()
-        .find(|p| config.active_project.as_deref() == Some(p.id.as_str()))
-        .map(|p| p.path.clone());
+    let project_path = if system_scope.unwrap_or(false) {
+        std::env::var("HOME")
+            .or_else(|_| std::env::var("USERPROFILE"))
+            .ok()
+    } else {
+        project_path.or_else(|| {
+            config
+                .projects
+                .iter()
+                .find(|p| config.active_project.as_deref() == Some(p.id.as_str()))
+                .map(|p| p.path.clone())
+        })
+    };
 
     let cancel = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
     state
@@ -1302,7 +1314,12 @@ pub async fn search_sessions(query: String) -> Result<Vec<crate::sessions::Sessi
 
 #[tauri::command]
 pub async fn list_sessions() -> Result<Vec<crate::sessions::SessionSummary>, String> {
-    Ok(crate::sessions::list())
+    // The assistant panel keeps its own conversations (Ask and one per project);
+    // they are not part of the project chat list.
+    Ok(crate::sessions::list()
+        .into_iter()
+        .filter(|session| !session.id.starts_with("assistant-"))
+        .collect())
 }
 
 #[tauri::command]

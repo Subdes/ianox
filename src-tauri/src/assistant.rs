@@ -6,8 +6,6 @@
 //! - macOS y Windows: posicionamiento en monitor activo con fallback dinámico.
 //! - Atajo global del sistema y toggling instantáneo.
 
-#[cfg(target_os = "linux")]
-use tauri::{LogicalPosition, LogicalSize};
 use tauri::{
     AppHandle, Emitter, Manager, PhysicalPosition, PhysicalSize, Runtime, WebviewWindow,
 };
@@ -27,13 +25,17 @@ pub fn hide_assistant<R: Runtime>(app: AppHandle<R>) {
     }
 }
 
-/// Muestra y enfoca la ventana principal de ianox.
+/// Muestra y enfoca la ventana principal de ianox, opcionalmente en una página.
 #[tauri::command]
-pub fn open_main_window<R: Runtime>(app: AppHandle<R>) {
+pub fn open_main_window<R: Runtime>(app: AppHandle<R>, page: Option<String>) {
     if let Some(w) = app.get_webview_window("main") {
         let _ = w.unminimize();
         let _ = w.show();
         let _ = w.set_focus();
+        if let Some(page) = page {
+            // Each window has its own frontend state: the main window navigates itself.
+            let _ = w.emit("app://navigate", page);
+        }
     }
 }
 
@@ -94,11 +96,13 @@ fn get_workarea_linux<R: Runtime>(window: &WebviewWindow<R>) -> Option<(f64, f64
 fn apply_linux_window_hints<R: Runtime>(window: &WebviewWindow<R>) {
     use gtk::prelude::*;
     if let Ok(gtk_win) = window.gtk_window() {
-        // En gestores tiling (KWin, Pop Shell, i3/sway, Bismuth, Polonium):
-        // Dock indica al compositor y al script de tiling que se trata de un panel/widget lateral,
-        // eximiéndolo incondicionalmente del auto-mosaico y del centrado forzado.
-        gtk_win.set_type_hint(gtk::gdk::WindowTypeHint::Dock);
+        // Utility mantiene la ventana flotante y fuera del mosaico (KWin, Pop Shell,
+        // i3/sway, Bismuth, Polonium) sin convertirla en un Dock: los compositores no
+        // conceden foco de teclado a los docks, así que el campo de texto quedaría muerto.
+        gtk_win.set_type_hint(gtk::gdk::WindowTypeHint::Utility);
         gtk_win.set_accept_focus(true);
+        gtk_win.set_focus_on_map(true);
+        gtk_win.set_decorated(false);
         gtk_win.set_role("ianox-assistant");
         gtk_win.set_keep_above(true);
         gtk_win.set_skip_taskbar_hint(true);
@@ -125,6 +129,15 @@ fn ensure_kwin_rules() {
 
     let content = std::fs::read_to_string(&kwinrules).unwrap_or_default();
     if content.contains("[ianox-assistant]") {
+        // Reglas creadas por versiones anteriores: `placement=0` delega la colocación en
+        // KWin (lo que vuelve a centrar el widget). `placement=1` la deja en manos de la app.
+        if let Some(migrated) = migrate_placement_rule(&content) {
+            if let Ok(mut f) = std::fs::File::create(&kwinrules) {
+                use std::io::Write;
+                let _ = f.write_all(migrated.as_bytes());
+            }
+            reload_kwin_rules();
+        }
         return;
     }
 
@@ -136,7 +149,7 @@ above=true
 aboverule=2
 noborder=true
 noborderrule=2
-placement=0
+placement=1
 placementrule=2
 skiptaskbar=true
 skiptaskbarrule=2
@@ -151,16 +164,39 @@ wmclassmatch=1
     if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&kwinrules) {
         use std::io::Write;
         let _ = f.write_all(rule.as_bytes());
-        // Pedir a KWin que recargue sus reglas en vivo
-        let qdbus_bin = if std::path::Path::new("/usr/bin/qdbus6").exists() {
-            "qdbus6"
-        } else {
-            "qdbus"
-        };
-        let _ = std::process::Command::new(qdbus_bin)
-            .args(["org.kde.KWin", "/KWin", "reconfigure"])
-            .status();
+        reload_kwin_rules();
     }
+}
+
+/// Rewrites `placement=0` to `placement=1` inside the ianox rule group only, so other
+/// applications' rules in `kwinrulesrc` keep their own placement policy.
+#[cfg(target_os = "linux")]
+fn migrate_placement_rule(content: &str) -> Option<String> {
+    const HEADER: &str = "[ianox-assistant]";
+    let start = content.find(HEADER)?;
+    let rest = &content[start + HEADER.len()..];
+    let end = rest.find("\n[").map(|index| index + 1).unwrap_or(rest.len());
+    let group = &rest[..end];
+    if !group.contains("\nplacement=0") {
+        return None;
+    }
+    let mut out = String::with_capacity(content.len());
+    out.push_str(&content[..start + HEADER.len()]);
+    out.push_str(&group.replace("\nplacement=0", "\nplacement=1"));
+    out.push_str(&rest[end..]);
+    Some(out)
+}
+
+#[cfg(target_os = "linux")]
+fn reload_kwin_rules() {
+    let qdbus_bin = if std::path::Path::new("/usr/bin/qdbus6").exists() {
+        "qdbus6"
+    } else {
+        "qdbus"
+    };
+    let _ = std::process::Command::new(qdbus_bin)
+        .args(["org.kde.KWin", "/KWin", "reconfigure"])
+        .status();
 }
 
 #[cfg(target_os = "linux")]
@@ -176,6 +212,7 @@ fn reposition_kwin_wayland(width: f64) {
                 if ((cls.indexOf("ianox") !== -1 || cap.indexOf("ianox") !== -1) &&
                     (cap.indexOf("assistant") !== -1 || c.resourceName === "assistant")) {{
                     var area = workspace.clientArea(KWin.PlacementArea, c);
+                    if (!area) area = workspace.clientArea(KWin.MoveArea, c);
                     if (!area) area = workspace.clientArea(KWin.MaximizeArea, c);
                     try {{ c.tile = null; }} catch(e) {{}}
                     var targetW = {width};
@@ -244,26 +281,29 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
             let pos_x = (x + w) - width - MARGIN_RIGHT;
             let pos_y = y;
 
-            let _ = window.set_size(LogicalSize::new(width, h));
-            let _ = window.set_position(LogicalPosition::new(pos_x, pos_y));
-
-            // Forzar en GTK directamente antes y después de show
+            // La geometría se aplica solo con GTK: `workarea()`, `move_` y `resize`
+            // comparten las mismas unidades lógicas. Mezclar `set_size`/`set_position`
+            // de Tauri (que aplica el factor de escala) duplicaba el ancho de la ventana.
             if let Ok(gtk_win) = window.gtk_window() {
                 use gtk::prelude::*;
-                gtk_win.move_(pos_x as i32, pos_y as i32);
                 gtk_win.resize(width as i32, h as i32);
+                gtk_win.move_(pos_x as i32, pos_y as i32);
             }
 
             let _ = window.show();
             let _ = window.unminimize();
             let _ = window.set_focus();
+            // GTK ignores keep-above hints set before the window is mapped.
+            let _ = window.set_always_on_top(true);
 
-            // Re-aplicar posición tras mapeo para sobreescribir cualquier heurística de centrado de KWin/Mutter
+            // Presentar la superficie para que el compositor la active y entregue el teclado.
             if let Ok(gtk_win) = window.gtk_window() {
                 use gtk::prelude::*;
+                gtk_win.set_keep_above(true);
+                gtk_win.set_skip_taskbar_hint(true);
+                gtk_win.present();
                 gtk_win.move_(pos_x as i32, pos_y as i32);
             }
-            let _ = window.set_position(LogicalPosition::new(pos_x, pos_y));
 
             // En Wayland bajo KDE Plasma 6 (Soplos Linux Tyson), KWin ignora gtk_window_move
             // y centra las ventanas flotantes; llamamos al scripting de KWin para posicionarla
@@ -273,11 +313,15 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
             let w_clone = window.clone();
             tauri::async_runtime::spawn(async move {
                 tokio::time::sleep(std::time::Duration::from_millis(60)).await;
-                let _ = w_clone.set_position(LogicalPosition::new(pos_x, pos_y));
+                let _ = w_clone.set_focus();
+                let _ = w_clone.set_always_on_top(true);
                 #[cfg(target_os = "linux")]
                 {
                     if let Ok(gtk_win) = w_clone.gtk_window() {
                         use gtk::prelude::*;
+                        gtk_win.set_keep_above(true);
+                        gtk_win.present();
+                        gtk_win.resize(width as i32, h as i32);
                         gtk_win.move_(pos_x as i32, pos_y as i32);
                     }
                     reposition_kwin_wayland(width);
@@ -289,23 +333,24 @@ fn position_and_show<R: Runtime>(window: &WebviewWindow<R>) {
         }
     }
 
-    // Fallback estándar (Windows, macOS o sistemas sin GDK)
-    if let Some(mon) = window
+    // Fallback estándar (Windows, macOS o Linux sin GDK). `work_area()` ya descuenta
+    // la barra de tareas, el Dock y la barra de menús del monitor.
+    let monitor = window
         .current_monitor()
         .ok()
         .flatten()
-        .or_else(|| window.primary_monitor().ok().flatten())
-    {
-        let pos = mon.position();
-        let size = mon.size();
+        .or_else(|| window.primary_monitor().ok().flatten());
+
+    if let Some(mon) = monitor {
+        let area = mon.work_area();
         let scale = mon.scale_factor();
 
         let phys_w = (DEFAULT_WIDTH * scale).round() as u32;
-        let pos_x = pos.x + size.width as i32 - phys_w as i32 - (MARGIN_RIGHT * scale).round() as i32;
-        let pos_y = pos.y;
+        let pos_x = area.position.x + area.size.width as i32 - phys_w as i32
+            - (MARGIN_RIGHT * scale).round() as i32;
 
-        let _ = window.set_size(PhysicalSize::new(phys_w, size.height));
-        let _ = window.set_position(PhysicalPosition::new(pos_x, pos_y));
+        let _ = window.set_size(PhysicalSize::new(phys_w, area.size.height));
+        let _ = window.set_position(PhysicalPosition::new(pos_x, area.position.y));
     }
 
     let _ = window.show();
@@ -365,4 +410,23 @@ pub fn setup_global_shortcut(app: &AppHandle) -> tauri::Result<()> {
     }
 
     Ok(())
+}
+
+#[cfg(all(test, target_os = "linux"))]
+mod tests {
+    use super::migrate_placement_rule;
+
+    #[test]
+    fn migrates_only_the_ianox_group() {
+        let rules = "[other-app]\nplacement=0\n\n[ianox-assistant]\nabove=true\nplacement=0\nplacementrule=2\n";
+        let migrated = migrate_placement_rule(rules).expect("the ianox rule is migrated");
+        assert!(migrated.contains("[other-app]\nplacement=0"));
+        assert!(migrated.contains("[ianox-assistant]\nabove=true\nplacement=1\nplacementrule=2"));
+    }
+
+    #[test]
+    fn leaves_current_rules_untouched() {
+        let rules = "[ianox-assistant]\nplacement=1\nplacementrule=2\n";
+        assert!(migrate_placement_rule(rules).is_none());
+    }
 }

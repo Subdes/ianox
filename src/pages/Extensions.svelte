@@ -64,7 +64,7 @@
       skills = s;
       lsp = l;
     } catch (e) {
-      console.error("Error cargando extensiones:", e);
+      console.error(t("Error loading extensions:"), e);
     } finally {
       loading = false;
     }

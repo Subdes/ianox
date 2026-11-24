@@ -100,7 +100,7 @@
         if (data.ui) uiConfig = data.ui;
         if (data.server) serverConfig = data.server;
       } catch (e) {
-        console.error("Error cargando config:", e);
+        console.error(t("Error loading config:"), e);
       } finally {
         if (!cancelled) loading = false;
       }
@@ -128,7 +128,7 @@
       await invoke("set_config", { config: newConfig });
       app.language = uiConfig.language === "en" ? "en" : "es";
     } catch (e) {
-      console.error("Error guardando:", e);
+      console.error(t("Error saving:"), e);
       alert(`${t("Error")}: ${e}`);
     } finally {
       saving = false;

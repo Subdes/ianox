@@ -36,7 +36,7 @@ pub fn set_autostart(enabled: bool) -> Result<bool, String> {
     #[cfg(target_os = "linux")]
     {
         let Some(desktop_path) = linux_autostart_path() else {
-            return Err("No se pudo determinar la ruta de configuración del usuario".into());
+            return Err("Could not determine user config path".into());
         };
 
         if enabled {

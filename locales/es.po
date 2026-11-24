@@ -1102,6 +1102,9 @@ msgstr "Quitar icono"
 msgid "Remove image"
 msgstr "Eliminar imagen"
 
+msgid "Remove queued message"
+msgstr "Eliminar mensaje pendiente"
+
 msgid "Remove project"
 msgstr "Quitar proyecto"
 
@@ -1650,3 +1653,30 @@ msgstr "{used} tokens · {n} peticiones"
 
 #~ msgid "Used {n} tools"
 #~ msgstr "Se usaron {n} herramientas"
+
+msgid "Allow for this conversation"
+msgstr "Permitir en esta conversación"
+
+msgid "Ask anything about your computer: files, commands, text or ideas."
+msgstr "Pregunta lo que sea sobre tu equipo: archivos, comandos, texto o ideas."
+
+msgid "Code assistant"
+msgstr "Asistente de código"
+
+msgid "No projects yet"
+msgstr "Sin proyectos todavía"
+
+msgid "Open projects"
+msgstr "Abrir proyectos"
+
+msgid "Select project"
+msgstr "Seleccionar proyecto"
+
+msgid "The agent needs your permission"
+msgstr "El agente necesita tu permiso"
+
+msgid "This looks like a private file (keys or credentials)."
+msgstr "Parece un archivo privado (claves o credenciales)."
+
+msgid "Work on the selected project: read, edit and run with your permission."
+msgstr "Trabaja en el proyecto elegido: lee, edita y ejecuta con tu permiso."

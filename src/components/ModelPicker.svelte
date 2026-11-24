@@ -11,6 +11,7 @@
     onselect,
     onclose,
     onchanged,
+    onconnect,
   }: {
     models: ModelInfo[];
     selected: { provider: string; id: string } | null;
@@ -18,6 +19,8 @@
     onclose: () => void;
     /** The set of available models changed (manage view). */
     onchanged: () => void;
+    /** Opens the provider form; the host window decides where (default: this window). */
+    onconnect?: () => void;
   } = $props();
 
   let mode = $state<"pick" | "manage">("pick");
@@ -73,7 +76,8 @@
 
   function openProviders(): void {
     onclose();
-    navigate("providers");
+    if (onconnect) onconnect();
+    else navigate("providers");
   }
 
   function pick(model: ModelInfo): void {

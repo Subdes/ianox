@@ -1,4 +1,4 @@
-//! Permisos que el usuario ya concedió ("Permitir en esta conversación").
+//! Permissions already granted by the user ("Allow for this conversation").
 //!
 //! Se guardan en `~/.config/ianox/permissions.json` como una lista de
 //! `sesión:clave` (`shell`, `read:/carpeta`), para que cerrar y volver a abrir

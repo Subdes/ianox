@@ -35,7 +35,7 @@
     try {
       servers = await invoke<McpServerInfo[]>("list_mcp_servers");
     } catch (e) {
-      console.error("Error cargando servidores MCP:", e);
+      console.error(t("Error loading MCP servers:"), e);
     } finally {
       loading = false;
     }

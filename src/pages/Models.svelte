@@ -19,7 +19,7 @@
 
     invoke<ModelInfo[]>("list_models")
       .then((data) => (models = data))
-      .catch((e) => console.error("Error cargando modelos:", e))
+      .catch((e) => console.error(t("Error loading models:"), e))
       .finally(() => (loading = false));
 
     listen<ModelInfo[]>("models://updated", (e) => (models = e.payload))

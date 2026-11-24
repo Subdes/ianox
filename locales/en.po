@@ -1097,6 +1097,9 @@ msgstr "Remove icon"
 msgid "Remove image"
 msgstr "Remove image"
 
+msgid "Remove queued message"
+msgstr "Remove queued message"
+
 msgid "Remove project"
 msgstr "Remove project"
 

@@ -1,6 +1,6 @@
 # ianox
 
-![Version](https://img.shields.io/badge/version-0.0.7-blue)
+![Version](https://img.shields.io/badge/version-0.0.9-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)
 ![Tauri](https://img.shields.io/badge/Tauri-2-orange)
@@ -17,8 +17,8 @@ It gives you one place to route requests across providers, manage local and remo
 
 ianox is a Tauri 2 application: a Rust backend and a Svelte 5 + Vite frontend, rendered through the system webview.
 
-- **Backend** (`src-tauri/src/`): one module per concern — `config.rs` (typed configuration and shared state), `provider.rs` (provider kinds and HTTP payload shapes), `router.rs` (internal routing, glob matching, SSE streaming), `server.rs` (the Axum HTTP gateway), `agent.rs` (agent loop bookkeeping), `tools.rs` (tool registry with JSON schemas), `mcp.rs` (MCP server launch and probing), `sessions.rs` (chat history on disk), `terminal.rs` (PTY sessions via `portable-pty`), `usage.rs` + `pricing.rs` (token accounting and model pricing), `extensions.rs` (skills, plugins, LSP), `i18n.rs`, and `tray.rs` + `window.rs` (tray icon, custom title bar, window state). Tauri commands are registered in `main.rs` and implemented in `commands.rs`.
-- **Frontend** (`src/`): one Svelte view per section in `src/pages/`, shared components in `src/components/` (sidebar, top bar, context panel, terminal, file explorer, review panel, browser panel, charts, modals) and the reactive app store in `src/app.svelte.ts`.
+- **Backend** (`src-tauri/src/`): one module per concern — `config.rs` (typed configuration and shared state), `provider.rs` (provider kinds and HTTP payload shapes), `router.rs` (internal routing, glob matching, SSE streaming), `server.rs` (the Axum HTTP gateway), `agent.rs` (agent loop bookkeeping), `tools.rs` (tool registry with JSON schemas), `mcp.rs` (MCP server launch and probing), `sessions.rs` (chat history on disk), `terminal.rs` (PTY sessions via `portable-pty`), `usage.rs` + `pricing.rs` (token accounting and model pricing), `extensions.rs` (skills, plugins, LSP), `assistant.rs` (floating side assistant dock & window management), `i18n.rs`, and `tray.rs` + `window.rs` (tray icon, custom title bar, window state). Tauri commands are registered in `main.rs` and implemented in `commands.rs`.
+- **Frontend** (`src/`): one Svelte view per section in `src/pages/`, shared components in `src/components/` (floating assistant, model picker, sidebar, top bar, context panel, terminal, file explorer, review panel, browser panel, charts, modals) and the reactive app store in `src/app.svelte.ts`.
 - **Internal vs. external routing**: the UI never goes through HTTP. `router.rs` resolves the provider and streams straight to the window; the Axum server exists only for external clients (IDEs, CLIs, `curl`).
 - **Streaming**: provider chunks are forwarded as SSE and emitted to the frontend as events, so long answers never block the interface. Chat streams can be cancelled at any time.
 - **Persistence**: configuration, sessions and usage counters are stored as JSON in the user's config directory. Pricing defaults ship in `src-tauri/pricing.default.json` and are copied out on first run.
@@ -26,8 +26,9 @@ ianox is a Tauri 2 application: a Rust backend and a Svelte 5 + Vite frontend, r
 
 ## Sections
 
+- **Floating Assistant**: instant global access (`Ctrl + Shift + Space` or tray menu) with separate **Ask** (system-wide assistant) and **Code** (project-scoped coding agent) modes, model selector with favorites and search, voice input, and live tool permission flow.
 - **Dashboard**: gateway status, provider and route summary, usage charts and quick actions.
-- **Chat**: streaming conversation with any configured model, markdown rendering, per-session token and cost accounting, cancel at any time, and side panels for terminal, file explorer, git review and browser.
+- **Chat**: streaming conversation with any configured model, markdown rendering with copyable code blocks, voice input dictation, turn queuing, per-session token and cost accounting, cancel at any time, and side panels for terminal, file explorer, git review and browser.
 - **Agents**: configurable agents (`build` / `plan` modes) with their own model and system prompt — `build` has write access, `plan` is read-only.
 - **Gateway**: the embedded HTTP server (default `127.0.0.1:20128`) with start / stop, CORS, optional bearer token and live status.
 - **Models**: model catalogue merged from every enabled provider plus local Ollama models, with pull and delete actions.
@@ -62,6 +63,8 @@ The agent loop advertises tools with JSON schemas and executes them on the model
 
 | Shortcut | Action |
 |---|---|
+| Ctrl + Shift + Space | Toggle Floating Assistant (global system shortcut) |
+| Ctrl + K | Search conversations |
 | Ctrl + ` | Open or close the side panel |
 | Ctrl + W | Close the active tab |
 | Ctrl + Shift + T | Reopen the last closed tab |
@@ -69,6 +72,7 @@ The agent loop advertises tools with JSON schemas and executes them on the model
 | Ctrl + Alt + P | Open file |
 | Ctrl + Alt + R | Review (git changes) |
 | Ctrl + Alt + B | Open browser |
+| Ctrl + Q | Quit ianox |
 
 Shortcuts are defined once in `src/shortcuts.ts` and rendered from there.
 
@@ -88,7 +92,8 @@ Requirements: Node.js 18+, Rust 1.77+, and the usual Tauri system dependencies (
 ```bash
 npm install
 npm run dev:app         # development (Tauri + Vite)
-npm run build:app       # release bundle
+npm run build:app       # release bundle (Linux native)
+npm run build:all       # cross-build all targets & collect to dist-packages/
 npm run check           # type-check the frontend
 ```
 
@@ -97,10 +102,11 @@ Other useful scripts:
 ```bash
 npm run dev             # frontend only, in the browser
 npm run build           # type-check + production frontend build
+npm run build:win       # Windows installer (x86_64-pc-windows-gnu)
+npm run build:mac       # macOS binary & DMG bundle
+npm run bundle:flatpak  # build Flatpak package
+npm run collect         # collect all packages into dist-packages/
 npm run icons           # regenerate the icon set from src-tauri/icons/source.png
-npm run flatpak:build   # build the Flatpak bundle
-npm run flatpak:run     # run the Flatpak build
-npm run flatpak:install # install the Flatpak build
 ```
 
 ## Branding
